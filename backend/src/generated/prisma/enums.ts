@@ -15,3 +15,11 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const ReviewStatus = {
+  APPROVED: 'APPROVED',
+  REJECT: 'REJECT'
+} as const
+
+export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]

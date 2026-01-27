@@ -26,6 +26,34 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Tutors {
+   id       String @id @default(ulid())
+   qualification String
+   university String 
+   major_subject String
+   experience_years Int
+   bio String
+   teaching_mode TeachingMode @default(Online)
+   monthly_rate Int
+   availability Json
+   languages Json
+
+}
+
+model TutorManagement {
+     id       String @id @default(ulid())
+     full_name String
+     email String
+     phone String
+     profile_image String
+     gender TutorManagementGender 
+     date_of_birth DateTime
+     age Int
+     nationality String
+     address String
+}
+
+
 model Review {
   id         String       @id @default(ulid())
   student_id String
@@ -41,6 +69,18 @@ model Review {
 enum Role {
   Tutor
   Student
+}
+
+enum TeachingMode {
+    Online
+    Offline
+    Both
+}
+enum TutorManagementGender {
+      Male
+      Female
+      Other
+
 }
 
 enum ReviewStatus {
