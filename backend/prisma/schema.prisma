@@ -6,21 +6,19 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-
-
 model User {
-  id String @id @default(ulid())
-  name String
-  email String
+  id       String @id @default(ulid())
+  name     String
+  email    String
   password String
-  role Role @default(Student)
+  role     Role   @default(Student)
 
   isActive Boolean @default(true)
 
@@ -28,8 +26,24 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Review {
+  id         String       @id @default(ulid())
+  student_id String
+  tutor_id   String
+  rating     Int
+  comment    String
+  status     ReviewStatus @default(APPROVED)
 
-enum Role{
-  Teacher
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  Tutor
   Student
+}
+
+enum ReviewStatus {
+  APPROVED
+  REJECT
 }
