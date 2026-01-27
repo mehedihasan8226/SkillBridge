@@ -17,6 +17,44 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const TeachingMode = {
+  Online: 'Online',
+  Offline: 'Offline',
+  Both: 'Both'
+} as const
+
+export type TeachingMode = (typeof TeachingMode)[keyof typeof TeachingMode]
+
+
+export const Gender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const PaymentStatus = {
+  Pending: 'Pending',
+  Paid: 'Paid',
+  Failed: 'Failed',
+  Refunded: 'Refunded'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const BookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
+
+
 export const ReviewStatus = {
   APPROVED: 'APPROVED',
   REJECT: 'REJECT'

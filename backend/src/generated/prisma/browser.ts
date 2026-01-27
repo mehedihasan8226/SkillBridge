@@ -18,12 +18,52 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model User
+ * Model TutorProfile
  * 
  */
-export type User = Prisma.UserModel
+export type TutorProfile = Prisma.TutorProfileModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model TutorCategory
+ * 
+ */
+export type TutorCategory = Prisma.TutorCategoryModel
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = Prisma.BookingModel
 /**
  * Model Review
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model Student
+ * 
+ */
+export type Student = Prisma.StudentModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel

@@ -5,10 +5,11 @@ const PORT = process.env.PORT || 5000
 
 async function server() {
     try {
-        await prisma.$disconnect()
+        await prisma.$connect()
 
         app.listen(PORT, () => {
             console.log(`server runnin on ${PORT}`);
+
 
         })
 
