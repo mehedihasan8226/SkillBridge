@@ -21,7 +21,7 @@ const app  = express()
  app.use(express.json());
 
   app.use("/tutorprofiles", tutorProfileRouter)
-  app.use("/me", authRouter)
+  app.use("/user", authRouter)
   app.use("/booking", bookingRouter)
   app.use("/student", studentRouter)
   app.use("/review", reviewRouter)

@@ -4,8 +4,11 @@ import { AuthController } from "./auth.controller"
 
 const router = express.Router()
 
-router.get("/:id", AuthController.getAuthProfileById)
+router.get("/me/:id", AuthController.getAuthProfileById)
 
+router.get("/", AuthController.getAuthUser)
+
+router.put("/:id", AuthController.updateAuthUser)
 
 
 

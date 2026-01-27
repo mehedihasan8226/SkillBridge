@@ -152,6 +152,12 @@ enum ReviewStatus {
 }
 
 
+enum UserStatus {
+  ban
+  unban
+}
+
+
 model User {
   id            String   @id @default(ulid())
   name          String
@@ -160,6 +166,7 @@ model User {
   password      String?
   image         String?
   role          Role     @default(Student)
+  status        UserStatus? @default(unban)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

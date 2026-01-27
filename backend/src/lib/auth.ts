@@ -22,7 +22,7 @@ export const auth = betterAuth({
    middleware: {
   async after(ctx: any) {
     if (ctx.path.endsWith("/sign-up/email")) {
-      const role = ctx.input?.role; // <-- Better Auth parsed body
+      const role = ctx.input?.role; 
 
       if (role === "Tutor" || role === "Student") {
         await prisma.user.update({

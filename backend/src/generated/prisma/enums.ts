@@ -61,3 +61,11 @@ export const ReviewStatus = {
 } as const
 
 export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]
+
+
+export const UserStatus = {
+  ban: 'ban',
+  unban: 'unban'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]

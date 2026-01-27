@@ -32,6 +32,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   image: string | null
   role: $Enums.Role | null
+  status: $Enums.UserStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +45,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   image: string | null
   role: $Enums.Role | null
+  status: $Enums.UserStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +58,7 @@ export type UserCountAggregateOutputType = {
   password: number
   image: number
   role: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +73,7 @@ export type UserMinAggregateInputType = {
   password?: true
   image?: true
   role?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +86,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   image?: true
   role?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type UserCountAggregateInputType = {
   password?: true
   image?: true
   role?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +185,7 @@ export type UserGroupByOutputType = {
   password: string | null
   image: string | null
   role: $Enums.Role
+  status: $Enums.UserStatus | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -212,6 +219,7 @@ export type UserWhereInput = {
   password?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusNullableFilter<"User"> | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   studentProfile?: Prisma.XOR<Prisma.StudentNullableScalarRelationFilter, Prisma.StudentWhereInput> | null
@@ -228,6 +236,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   studentProfile?: Prisma.StudentOrderByWithRelationInput
@@ -247,6 +256,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusNullableFilter<"User"> | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   studentProfile?: Prisma.XOR<Prisma.StudentNullableScalarRelationFilter, Prisma.StudentWhereInput> | null
@@ -263,6 +273,7 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -281,6 +292,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  status?: Prisma.EnumUserStatusNullableWithAggregatesFilter<"User"> | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -293,6 +305,7 @@ export type UserCreateInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentCreateNestedOneWithoutUserInput
@@ -309,6 +322,7 @@ export type UserUncheckedCreateInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
@@ -325,6 +339,7 @@ export type UserUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUpdateOneWithoutUserNestedInput
@@ -341,6 +356,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -357,6 +373,7 @@ export type UserCreateManyInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -369,6 +386,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -381,6 +399,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,6 +417,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -410,6 +430,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -422,6 +443,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   image?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -462,6 +484,10 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
+export type NullableEnumUserStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserStatus | null
+}
+
 export type UserCreateNestedOneWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
@@ -498,6 +524,7 @@ export type UserCreateWithoutTutorProfileInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentCreateNestedOneWithoutUserInput
@@ -513,6 +540,7 @@ export type UserUncheckedCreateWithoutTutorProfileInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
@@ -544,6 +572,7 @@ export type UserUpdateWithoutTutorProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUpdateOneWithoutUserNestedInput
@@ -559,6 +588,7 @@ export type UserUncheckedUpdateWithoutTutorProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -574,6 +604,7 @@ export type UserCreateWithoutStudentProfileInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
@@ -589,6 +620,7 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
@@ -620,6 +652,7 @@ export type UserUpdateWithoutStudentProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
@@ -635,6 +668,7 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -650,6 +684,7 @@ export type UserCreateWithoutSessionsInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentCreateNestedOneWithoutUserInput
@@ -665,6 +700,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
@@ -696,6 +732,7 @@ export type UserUpdateWithoutSessionsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUpdateOneWithoutUserNestedInput
@@ -711,6 +748,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -726,6 +764,7 @@ export type UserCreateWithoutAccountsInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentCreateNestedOneWithoutUserInput
@@ -741,6 +780,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   password?: string | null
   image?: string | null
   role?: $Enums.Role
+  status?: $Enums.UserStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   studentProfile?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
@@ -772,6 +812,7 @@ export type UserUpdateWithoutAccountsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUpdateOneWithoutUserNestedInput
@@ -787,6 +828,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.NullableEnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studentProfile?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -842,6 +884,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   studentProfile?: boolean | Prisma.User$studentProfileArgs<ExtArgs>
@@ -859,6 +902,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -871,6 +915,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -883,11 +928,12 @@ export type UserSelectScalar = {
   password?: boolean
   image?: boolean
   role?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "password" | "image" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "password" | "image" | "role" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   studentProfile?: boolean | Prisma.User$studentProfileArgs<ExtArgs>
   tutorProfile?: boolean | Prisma.User$tutorProfileArgs<ExtArgs>
@@ -914,6 +960,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string | null
     image: string | null
     role: $Enums.Role
+    status: $Enums.UserStatus | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1350,6 +1397,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
