@@ -51,6 +51,7 @@ export type TutorProfileMinAggregateOutputType = {
   bio: string | null
   teachingMode: $Enums.TeachingMode | null
   monthlyRate: number | null
+  availability: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,6 +71,7 @@ export type TutorProfileMaxAggregateOutputType = {
   bio: string | null
   teachingMode: $Enums.TeachingMode | null
   monthlyRate: number | null
+  availability: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -122,6 +124,7 @@ export type TutorProfileMinAggregateInputType = {
   bio?: true
   teachingMode?: true
   monthlyRate?: true
+  availability?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -141,6 +144,7 @@ export type TutorProfileMaxAggregateInputType = {
   bio?: true
   teachingMode?: true
   monthlyRate?: true
+  availability?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -268,8 +272,8 @@ export type TutorProfileGroupByOutputType = {
   bio: string | null
   teachingMode: $Enums.TeachingMode
   monthlyRate: number
-  languages: runtime.JsonValue
-  availability: runtime.JsonValue
+  languages: runtime.JsonValue | null
+  availability: boolean | null
   createdAt: Date
   updatedAt: Date
   _count: TutorProfileCountAggregateOutputType | null
@@ -312,8 +316,8 @@ export type TutorProfileWhereInput = {
   bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   teachingMode?: Prisma.EnumTeachingModeFilter<"TutorProfile"> | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFilter<"TutorProfile"> | number
-  languages?: Prisma.JsonFilter<"TutorProfile">
-  availability?: Prisma.JsonFilter<"TutorProfile">
+  languages?: Prisma.JsonNullableFilter<"TutorProfile">
+  availability?: Prisma.BoolNullableFilter<"TutorProfile"> | boolean | null
   createdAt?: Prisma.DateTimeFilter<"TutorProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TutorProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -337,8 +341,8 @@ export type TutorProfileOrderByWithRelationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   teachingMode?: Prisma.SortOrder
   monthlyRate?: Prisma.SortOrder
-  languages?: Prisma.SortOrder
-  availability?: Prisma.SortOrder
+  languages?: Prisma.SortOrderInput | Prisma.SortOrder
+  availability?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -365,8 +369,8 @@ export type TutorProfileWhereUniqueInput = Prisma.AtLeast<{
   bio?: Prisma.StringNullableFilter<"TutorProfile"> | string | null
   teachingMode?: Prisma.EnumTeachingModeFilter<"TutorProfile"> | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFilter<"TutorProfile"> | number
-  languages?: Prisma.JsonFilter<"TutorProfile">
-  availability?: Prisma.JsonFilter<"TutorProfile">
+  languages?: Prisma.JsonNullableFilter<"TutorProfile">
+  availability?: Prisma.BoolNullableFilter<"TutorProfile"> | boolean | null
   createdAt?: Prisma.DateTimeFilter<"TutorProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TutorProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -390,8 +394,8 @@ export type TutorProfileOrderByWithAggregationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   teachingMode?: Prisma.SortOrder
   monthlyRate?: Prisma.SortOrder
-  languages?: Prisma.SortOrder
-  availability?: Prisma.SortOrder
+  languages?: Prisma.SortOrderInput | Prisma.SortOrder
+  availability?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TutorProfileCountOrderByAggregateInput
@@ -419,8 +423,8 @@ export type TutorProfileScalarWhereWithAggregatesInput = {
   bio?: Prisma.StringNullableWithAggregatesFilter<"TutorProfile"> | string | null
   teachingMode?: Prisma.EnumTeachingModeWithAggregatesFilter<"TutorProfile"> | $Enums.TeachingMode
   monthlyRate?: Prisma.IntWithAggregatesFilter<"TutorProfile"> | number
-  languages?: Prisma.JsonWithAggregatesFilter<"TutorProfile">
-  availability?: Prisma.JsonWithAggregatesFilter<"TutorProfile">
+  languages?: Prisma.JsonNullableWithAggregatesFilter<"TutorProfile">
+  availability?: Prisma.BoolNullableWithAggregatesFilter<"TutorProfile"> | boolean | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TutorProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TutorProfile"> | Date | string
 }
@@ -439,8 +443,8 @@ export type TutorProfileCreateInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
@@ -464,8 +468,8 @@ export type TutorProfileUncheckedCreateInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
@@ -487,8 +491,8 @@ export type TutorProfileUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
@@ -512,8 +516,8 @@ export type TutorProfileUncheckedUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
@@ -536,8 +540,8 @@ export type TutorProfileCreateManyInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -556,8 +560,8 @@ export type TutorProfileUpdateManyMutationInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -577,8 +581,8 @@ export type TutorProfileUncheckedUpdateManyInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -624,6 +628,7 @@ export type TutorProfileMaxOrderByAggregateInput = {
   bio?: Prisma.SortOrder
   teachingMode?: Prisma.SortOrder
   monthlyRate?: Prisma.SortOrder
+  availability?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -643,6 +648,7 @@ export type TutorProfileMinOrderByAggregateInput = {
   bio?: Prisma.SortOrder
   teachingMode?: Prisma.SortOrder
   monthlyRate?: Prisma.SortOrder
+  availability?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -688,6 +694,10 @@ export type IntFieldUpdateOperationsInput = {
 
 export type EnumTeachingModeFieldUpdateOperationsInput = {
   set?: $Enums.TeachingMode
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -782,8 +792,8 @@ export type TutorProfileCreateWithoutCategoriesInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
@@ -806,8 +816,8 @@ export type TutorProfileUncheckedCreateWithoutCategoriesInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
@@ -844,8 +854,8 @@ export type TutorProfileUpdateWithoutCategoriesInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
@@ -868,8 +878,8 @@ export type TutorProfileUncheckedUpdateWithoutCategoriesInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
@@ -890,8 +900,8 @@ export type TutorProfileCreateWithoutBookingsInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
@@ -914,8 +924,8 @@ export type TutorProfileUncheckedCreateWithoutBookingsInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
@@ -952,8 +962,8 @@ export type TutorProfileUpdateWithoutBookingsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
@@ -976,8 +986,8 @@ export type TutorProfileUncheckedUpdateWithoutBookingsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
@@ -998,8 +1008,8 @@ export type TutorProfileCreateWithoutReviewsInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTutorProfileInput
@@ -1022,8 +1032,8 @@ export type TutorProfileUncheckedCreateWithoutReviewsInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
@@ -1060,8 +1070,8 @@ export type TutorProfileUpdateWithoutReviewsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTutorProfileNestedInput
@@ -1084,8 +1094,8 @@ export type TutorProfileUncheckedUpdateWithoutReviewsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
@@ -1106,8 +1116,8 @@ export type TutorProfileCreateWithoutUserInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
@@ -1129,8 +1139,8 @@ export type TutorProfileUncheckedCreateWithoutUserInput = {
   bio?: string | null
   teachingMode?: $Enums.TeachingMode
   monthlyRate: number
-  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
@@ -1168,8 +1178,8 @@ export type TutorProfileUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
@@ -1191,8 +1201,8 @@ export type TutorProfileUncheckedUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teachingMode?: Prisma.EnumTeachingModeFieldUpdateOperationsInput | $Enums.TeachingMode
   monthlyRate?: Prisma.IntFieldUpdateOperationsInput | number
-  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  availability?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  languages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  availability?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
@@ -1378,8 +1388,8 @@ export type $TutorProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
     bio: string | null
     teachingMode: $Enums.TeachingMode
     monthlyRate: number
-    languages: runtime.JsonValue
-    availability: runtime.JsonValue
+    languages: runtime.JsonValue | null
+    availability: boolean | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["tutorProfile"]>
@@ -1824,7 +1834,7 @@ export interface TutorProfileFieldRefs {
   readonly teachingMode: Prisma.FieldRef<"TutorProfile", 'TeachingMode'>
   readonly monthlyRate: Prisma.FieldRef<"TutorProfile", 'Int'>
   readonly languages: Prisma.FieldRef<"TutorProfile", 'Json'>
-  readonly availability: Prisma.FieldRef<"TutorProfile", 'Json'>
+  readonly availability: Prisma.FieldRef<"TutorProfile", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"TutorProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TutorProfile", 'DateTime'>
 }

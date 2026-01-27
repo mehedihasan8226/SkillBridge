@@ -31,13 +31,13 @@ model TutorProfile {
   bio           String?
   teachingMode  TeachingMode @default(Online)
   monthlyRate   Int
-  languages     Json
-  availability  Json
+  languages     Json?
+  availability  Boolean?
 
   bookings Booking[]
   reviews  Review[]
 
-  categories TutorCategory[] // relation to join table
+  categories TutorCategory[] 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -118,6 +118,7 @@ enum Role {
   Tutor
   Student
 }
+
 
 enum TeachingMode {
   Online
