@@ -4,8 +4,8 @@ import { TutorProfileService } from "./tutorProfile.service";
 
 const createTutorProfile = async (req: Request, res: Response, next: NextFunction) =>{
     try {
-        // const user = req.user;
-        // req.body.authorId = user?.id
+        const user = req.user;
+        req.body.userId = user?.id
         const result = await TutorProfileService.createTutorProfile(req.body)
     
         res.status(201).json(result)

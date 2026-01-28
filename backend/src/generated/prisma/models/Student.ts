@@ -428,6 +428,11 @@ export type StudentUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StudentNullableScalarRelationFilter = {
+  is?: Prisma.StudentWhereInput | null
+  isNot?: Prisma.StudentWhereInput | null
+}
+
 export type StudentScalarRelationFilter = {
   is?: Prisma.StudentWhereInput
   isNot?: Prisma.StudentWhereInput
@@ -480,21 +485,18 @@ export type StudentSumOrderByAggregateInput = {
   age?: Prisma.SortOrder
 }
 
-export type StudentNullableScalarRelationFilter = {
-  is?: Prisma.StudentWhereInput | null
-  isNot?: Prisma.StudentWhereInput | null
-}
-
 export type StudentCreateNestedOneWithoutBookingsInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutBookingsInput, Prisma.StudentUncheckedCreateWithoutBookingsInput>
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutBookingsInput
   connect?: Prisma.StudentWhereUniqueInput
 }
 
-export type StudentUpdateOneRequiredWithoutBookingsNestedInput = {
+export type StudentUpdateOneWithoutBookingsNestedInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutBookingsInput, Prisma.StudentUncheckedCreateWithoutBookingsInput>
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutBookingsInput
   upsert?: Prisma.StudentUpsertWithoutBookingsInput
+  disconnect?: Prisma.StudentWhereInput | boolean
+  delete?: Prisma.StudentWhereInput | boolean
   connect?: Prisma.StudentWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutBookingsInput, Prisma.StudentUpdateWithoutBookingsInput>, Prisma.StudentUncheckedUpdateWithoutBookingsInput>
 }

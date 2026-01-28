@@ -387,6 +387,7 @@ export const ModelName = {
   TutorProfile: 'TutorProfile',
   Category: 'Category',
   TutorCategory: 'TutorCategory',
+  TutorAvailability: 'TutorAvailability',
   Booking: 'Booking',
   Review: 'Review',
   Student: 'Student',
@@ -409,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tutorProfile" | "category" | "tutorCategory" | "booking" | "review" | "student" | "user" | "session" | "account" | "verification"
+    modelProps: "tutorProfile" | "category" | "tutorCategory" | "tutorAvailability" | "booking" | "review" | "student" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -632,6 +633,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TutorCategoryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TutorCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    TutorAvailability: {
+      payload: Prisma.$TutorAvailabilityPayload<ExtArgs>
+      fields: Prisma.TutorAvailabilityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TutorAvailabilityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TutorAvailabilityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        findFirst: {
+          args: Prisma.TutorAvailabilityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TutorAvailabilityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        findMany: {
+          args: Prisma.TutorAvailabilityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>[]
+        }
+        create: {
+          args: Prisma.TutorAvailabilityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        createMany: {
+          args: Prisma.TutorAvailabilityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TutorAvailabilityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>[]
+        }
+        delete: {
+          args: Prisma.TutorAvailabilityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        update: {
+          args: Prisma.TutorAvailabilityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        deleteMany: {
+          args: Prisma.TutorAvailabilityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TutorAvailabilityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TutorAvailabilityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>[]
+        }
+        upsert: {
+          args: Prisma.TutorAvailabilityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TutorAvailabilityPayload>
+        }
+        aggregate: {
+          args: Prisma.TutorAvailabilityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTutorAvailability>
+        }
+        groupBy: {
+          args: Prisma.TutorAvailabilityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TutorAvailabilityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TutorAvailabilityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TutorAvailabilityCountAggregateOutputType> | number
         }
       }
     }
@@ -1233,17 +1308,27 @@ export const TutorCategoryScalarFieldEnum = {
 export type TutorCategoryScalarFieldEnum = (typeof TutorCategoryScalarFieldEnum)[keyof typeof TutorCategoryScalarFieldEnum]
 
 
-export const BookingScalarFieldEnum = {
+export const TutorAvailabilityScalarFieldEnum = {
   id: 'id',
-  studentId: 'studentId',
   tutorId: 'tutorId',
-  sessionDate: 'sessionDate',
   startTime: 'startTime',
   endTime: 'endTime',
+  isBooked: 'isBooked'
+} as const
+
+export type TutorAvailabilityScalarFieldEnum = (typeof TutorAvailabilityScalarFieldEnum)[keyof typeof TutorAvailabilityScalarFieldEnum]
+
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tutorId: 'tutorId',
+  tutorAvailabilityId: 'tutorAvailabilityId',
   status: 'status',
   price: 'price',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  studentId: 'studentId'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
@@ -1645,6 +1730,7 @@ export type GlobalOmitConfig = {
   tutorProfile?: Prisma.TutorProfileOmit
   category?: Prisma.CategoryOmit
   tutorCategory?: Prisma.TutorCategoryOmit
+  tutorAvailability?: Prisma.TutorAvailabilityOmit
   booking?: Prisma.BookingOmit
   review?: Prisma.ReviewOmit
   student?: Prisma.StudentOmit

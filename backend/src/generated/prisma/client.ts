@@ -55,6 +55,11 @@ export type Category = Prisma.CategoryModel
  */
 export type TutorCategory = Prisma.TutorCategoryModel
 /**
+ * Model TutorAvailability
+ * 
+ */
+export type TutorAvailability = Prisma.TutorAvailabilityModel
+/**
  * Model Booking
  * 
  */

@@ -13,7 +13,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model TutorProfile {
   id     String @id @default(ulid())
   userId String @unique
@@ -37,10 +36,11 @@ model TutorProfile {
   bookings Booking[]
   reviews  Review[]
 
-  categories TutorCategory[] 
+  categories TutorCategory[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  tutorAvailabilities TutorAvailability[]
 }
 
 model Category {
@@ -61,27 +61,37 @@ model TutorCategory {
 }
 
 
+model TutorAvailability {
+  id      String       @id @default(ulid())
+  tutorId String
+  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
 
+  startTime DateTime
+  endTime   DateTime
+  isBooked  Boolean  @default(false)
 
+  booking Booking?
+}
 
 
 model Booking {
-  id        String @id @default(ulid())
-  studentId String
-  tutorId   String
+  id                  String @id @default(ulid())
+  userId              String
+  tutorId             String
+  tutorAvailabilityId String @unique
 
-  student Student      @relation(fields: [studentId], references: [id])
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
+  user              User              @relation(fields: [userId], references: [id])
+  tutor             TutorProfile      @relation(fields: [tutorId], references: [id])
+  tutorAvailability TutorAvailability @relation(fields: [tutorAvailabilityId], references: [id])
 
-  sessionDate DateTime
-  startTime   DateTime
-  endTime     DateTime
-  status      BookingStatus @default(PENDING)
-  price       Int
+  status BookingStatus @default(PENDING)
+  price  Int
 
-  reviews   Review[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reviews   Review[]
+  student   Student? @relation(fields: [studentId], references: [id])
+  studentId String?
 }
 
 model Review {
@@ -98,6 +108,7 @@ model Review {
   comment   String?
   status    ReviewStatus @default(APPROVED)
   createdAt DateTime     @default(now())
+  @@unique([bookingId, studentId])
 }
 
 model Student {
@@ -124,7 +135,6 @@ enum Role {
   Student
   Admin
 }
-
 
 enum TeachingMode {
   Online
@@ -157,29 +167,28 @@ enum ReviewStatus {
   REJECT
 }
 
-
 enum UserStatus {
   ban
   unban
 }
 
-
 model User {
-  id            String   @id @default(ulid())
+  id            String      @id @default(ulid())
   name          String
-  email         String   @unique
-  emailVerified Boolean  @default(false)
+  email         String      @unique
+  emailVerified Boolean     @default(false)
   password      String?
   image         String?
-  role          Role     @default(Student)
+  role          Role        @default(Student)
   status        UserStatus? @default(unban)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   studentProfile Student?      @relation("StudentProfile")
   tutorProfile   TutorProfile? @relation("TutorProfile")
   sessions       Session[]
   accounts       Account[]
+  bookings       Booking[]
 
   @@map("user")
 }

@@ -4,8 +4,7 @@ import { BookingService } from "./booking.service";
 
 const createBooking = async (req: Request, res: Response, next: NextFunction) =>{
     try {
-        // const user = req.user;
-        // req.body.authorId = user?.id
+
         const result = await BookingService.createBooking(req.body)
     
         res.status(201).json(result)

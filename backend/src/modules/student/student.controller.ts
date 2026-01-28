@@ -5,8 +5,8 @@ import { StudentService } from "./student.service";
 
 const createStudent = async (req: Request, res: Response, next: NextFunction) =>{
     try {
-        // const user = req.user;
-        // req.body.authorId = user?.id
+        const user = req.user;
+        req.body.userId = user?.id
         const result = await StudentService.createStudent(req.body)
     
         res.status(201).json(result)

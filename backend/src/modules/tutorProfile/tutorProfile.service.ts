@@ -2,40 +2,13 @@ import { Result } from "pg";
 import { PrismaAction } from "../../generated/prisma/internal/prismaNamespace";
 import { prisma } from "../../lib/prisma"
 
-// const createTutorProfile = async (payload: {
-//         content: string,
-//         authorId: string,
-//         postId: string,
-//         parentId: string
-// }) => {
-//         await prisma.post.findUniqueOrThrow(
-//                 {
-//                         where: {
-//                                 id: payload.postId
-//                         }
-//                 }
-//         )
-
-//         if (payload.parentId) {
-//                 await prisma.comment.findUniqueOrThrow({
-//                         where: {
-//                                 id: payload.parentId
-//                         }
-//                 })
-//         }
-
-//         const result = await prisma.comment.create({
-//                 data: payload
-//         })
-
-//         return result;
-
-// }
-
-
-
 
 const createTutorProfile = async (payload: any ) => {
+
+    const existing = await prisma.tutorProfile.findUnique({
+        where: { userId: payload.userId }
+        });
+    if (existing) throw new Error("Profile already exists for this user");
        
         const result = await prisma.tutorProfile.create({
                 data: payload
@@ -56,11 +29,13 @@ const getAllTutorProfile = async ()=>{
 const getTutorProfileById = async (id: string) => {
 
     const result = await prisma.tutorProfile.findFirst({
-        where: {
-          id: id.trim(),
-        },
-        // Optional: include related data if needed
-        // include: { user: true } 
+       where: { id: id.trim() },
+       include: {
+            user: true,
+            categories: true,
+            tutorAvailabilities: true,
+            reviews: true,
+        }
     });
 
     return result;
