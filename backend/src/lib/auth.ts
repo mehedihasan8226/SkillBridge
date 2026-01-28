@@ -14,25 +14,41 @@ export const auth = betterAuth({
       
       process.env.FRONTEND_URL! || "http://localhost:3000"
   ],
+
+   user: {
+        additionalFields: {
+            role: {
+                type: "string",
+                defaultValue: "Student",
+                required: false
+            },
+            status: {
+                type: "string",
+                defaultValue: "unban",
+                required: false
+            }
+        }
+    },
+
     emailAndPassword: { 
     enabled: true, 
   }, 
 
-  // for role added:
-   middleware: {
-  async after(ctx: any) {
-    if (ctx.path.endsWith("/sign-up/email")) {
-      const role = ctx.input?.role; 
+//   // for role added:
+//    middleware: {
+//   async after(ctx: any) {
+//     if (ctx.path.endsWith("/sign-up/email")) {
+//       const role = ctx.input?.role; 
 
-      if (role === "Tutor" || role === "Student") {
-        await prisma.user.update({
-          where: { id: ctx.body.user.id },
-          data: { role },
-        });
-      }
-    }
-  },
-},
+//       if (role === "Tutor" || role === "Student") {
+//         await prisma.user.update({
+//           where: { id: ctx.body.user.id },
+//           data: { role },
+//         });
+//       }
+//     }
+//   },
+// },
 
 
 });

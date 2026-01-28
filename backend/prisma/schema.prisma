@@ -117,6 +117,7 @@ model Student {
 enum Role {
   Tutor
   Student
+  Admin
 }
 
 
