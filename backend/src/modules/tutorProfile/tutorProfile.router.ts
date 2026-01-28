@@ -4,7 +4,7 @@ import auth, { UserRole } from "../../middlewares/auth"
 
 const router = express.Router()
 
-router.post("/", auth(UserRole.Admin), TutorProfileController.createTutorProfile)
+router.post("/", auth(UserRole.Admin, UserRole.Tutor), TutorProfileController.createTutorProfile)
 router.get("/",  TutorProfileController.getAllTutorProfile)
 router.get("/:id", TutorProfileController.getTutorProfileById)
 

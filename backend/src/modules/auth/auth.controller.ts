@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AuthService } from "./auth.service";
 
 
@@ -6,23 +6,20 @@ import { AuthService } from "./auth.service";
 
 
 
-const getAuthUser = async (req: Request, res: Response)=>{
+const getAuthUser = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         
             const result = await AuthService.getAuthUser()
             res.status(200).json(result)
             
         } catch (error) {
-        res.status(400).json({
-            error: "TutorProfile get failed",
-            details: error
-        })
+            next(error)
     }
         
 }
 
 
-const getAuthProfileById = async (req: Request, res: Response) => {
+const getAuthProfileById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
       
@@ -43,17 +40,14 @@ const getAuthProfileById = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Failed to get  Profile",
-            details: error instanceof Error ? error.message : error
-        });
+        
+        next(error)
     }
 }
 
 
 
-const updateAuthUser = async (req: Request, res: Response) => {
+const updateAuthUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
         
@@ -68,11 +62,7 @@ const updateAuthUser = async (req: Request, res: Response) => {
         });
         
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "User status update failed",
-            details: error instanceof Error ? error.message : error
-        });
+        next(error)
     }
 }
 

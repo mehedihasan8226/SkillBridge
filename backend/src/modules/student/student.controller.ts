@@ -1,9 +1,9 @@
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
 
 
-const createStudent = async (req: Request, res: Response) =>{
+const createStudent = async (req: Request, res: Response, next: NextFunction) =>{
     try {
         // const user = req.user;
         // req.body.authorId = user?.id
@@ -11,34 +11,28 @@ const createStudent = async (req: Request, res: Response) =>{
     
         res.status(201).json(result)
         
-    } catch (e) {
-        res.status(400).json({
-            error: "student creation failed!",
-            details: e
-        })
+    } catch (error) {
+        next(error)
     }
 }
 
 
 
 
-const getAllStudent = async (req: Request, res: Response)=>{
+const getAllStudent = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         
             const result = await StudentService.getAllStudent()
             res.status(200).json(result)
             
         } catch (error) {
-        res.status(400).json({
-            error: "student get failed",
-            details: error
-        })
+            next(error)
     }
         
 }
 
 
-const getStudentById = async (req: Request, res: Response) => {
+const getStudentById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
       
@@ -59,11 +53,8 @@ const getStudentById = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Failed to get student",
-            details: error instanceof Error ? error.message : error
-        });
+      
+        next(error)
     }
 }
 

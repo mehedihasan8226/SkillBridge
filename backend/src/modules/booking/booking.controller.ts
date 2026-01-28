@@ -1,8 +1,8 @@
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { BookingService } from "./booking.service";
 
-const createBooking = async (req: Request, res: Response) =>{
+const createBooking = async (req: Request, res: Response, next: NextFunction) =>{
     try {
         // const user = req.user;
         // req.body.authorId = user?.id
@@ -10,34 +10,28 @@ const createBooking = async (req: Request, res: Response) =>{
     
         res.status(201).json(result)
         
-    } catch (e) {
-        res.status(400).json({
-            error: "Booking creation failed!",
-            details: e
-        })
+    } catch (error) {
+        next(error)
     }
 }
 
 
 
 
-const getAllBooking = async (req: Request, res: Response)=>{
+const getAllBooking = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         
             const result = await BookingService.getAllBooking()
             res.status(200).json(result)
             
         } catch (error) {
-        res.status(400).json({
-            error: "Booking get failed",
-            details: error
-        })
+            next(error)
     }
         
 }
 
 
-const getBookingById = async (req: Request, res: Response) => {
+const getBookingById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
       
@@ -58,11 +52,7 @@ const getBookingById = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Failed to get Booking",
-            details: error instanceof Error ? error.message : error
-        });
+        next(error)
     }
 }
 

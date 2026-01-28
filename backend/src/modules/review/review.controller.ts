@@ -1,10 +1,10 @@
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ReviewService } from "./review.service";
 
 
 
-const createReview = async (req: Request, res: Response) =>{
+const createReview = async (req: Request, res: Response, next: NextFunction) =>{
     try {
         // const user = req.user;
         // req.body.authorId = user?.id
@@ -12,34 +12,28 @@ const createReview = async (req: Request, res: Response) =>{
     
         res.status(201).json(result)
         
-    } catch (e) {
-        res.status(400).json({
-            error: "Review creation failed!",
-            details: e
-        })
+    } catch (error) {
+       next(error)
     }
 }
 
 
 
 
-const getAllReview = async (req: Request, res: Response)=>{
+const getAllReview = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         
             const result = await ReviewService.getAllReview()
             res.status(200).json(result)
             
         } catch (error) {
-        res.status(400).json({
-            error: "Review get failed",
-            details: error
-        })
+            next(error)
     }
         
 }
 
 
-const getReviewById = async (req: Request, res: Response) => {
+const getReviewById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
       
@@ -60,11 +54,8 @@ const getReviewById = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Failed to get Review",
-            details: error instanceof Error ? error.message : error
-        });
+        
+        next(error)
     }
 }
 

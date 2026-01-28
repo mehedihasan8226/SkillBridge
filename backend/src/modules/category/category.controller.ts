@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { CategoryService } from "./category.service";
 
-const createCategory = async (req: Request, res: Response) => {
+const createCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body;
 
@@ -20,14 +20,11 @@ const createCategory = async (req: Request, res: Response) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+      next(error)
   }
 };
 
-const getAllCategories = async (_req: Request, res: Response) => {
+const getAllCategories = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await CategoryService.getAllCategories();
 
@@ -36,10 +33,7 @@ const getAllCategories = async (_req: Request, res: Response) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+      next(error)
   }
 };
 

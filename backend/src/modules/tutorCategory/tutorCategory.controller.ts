@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { TutorCategoryService } from "./tutorCategory.service";
 
-const assignCategories = async (req: Request, res: Response) => {
+const assignCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { tutorId } = req.params;
     const { categoryIds } = req.body;
@@ -24,14 +24,15 @@ const assignCategories = async (req: Request, res: Response) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: error.message
+    // });
+    next(error)
   }
 };
 
-const removeCategory = async (req: Request, res: Response) => {
+const removeCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { tutorId, categoryId } = req.params;
 
@@ -42,10 +43,8 @@ const removeCategory = async (req: Request, res: Response) => {
       message: "Category removed from tutor"
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message
-    });
+
+    next(error)
   }
 };
 

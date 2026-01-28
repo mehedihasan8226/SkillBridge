@@ -1,8 +1,8 @@
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { TutorProfileService } from "./tutorProfile.service";
 
-const createTutorProfile = async (req: Request, res: Response) =>{
+const createTutorProfile = async (req: Request, res: Response, next: NextFunction) =>{
     try {
         // const user = req.user;
         // req.body.authorId = user?.id
@@ -10,34 +10,30 @@ const createTutorProfile = async (req: Request, res: Response) =>{
     
         res.status(201).json(result)
         
-    } catch (e) {
-        res.status(400).json({
-            error: "TutorProfile creation failed!",
-            details: e
-        })
+    } catch (error) {
+
+        next(error)
     }
 }
 
 
 
 
-const getAllTutorProfile = async (req: Request, res: Response)=>{
+const getAllTutorProfile = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         
             const result = await TutorProfileService.getAllTutorProfile()
             res.status(200).json(result)
             
         } catch (error) {
-        res.status(400).json({
-            error: "TutorProfile get failed",
-            details: error
-        })
+
+        next(error)
     }
         
 }
 
 
-const getTutorProfileById = async (req: Request, res: Response) => {
+const getTutorProfileById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
       
@@ -58,16 +54,13 @@ const getTutorProfileById = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "Failed to get Tutor Profile",
-            details: error instanceof Error ? error.message : error
-        });
+
+        next(error)
     }
 }
 
 
-const updateTutorAvailability = async (req: Request, res: Response) => {
+const updateTutorAvailability = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
         
@@ -82,11 +75,9 @@ const updateTutorAvailability = async (req: Request, res: Response) => {
         });
         
     } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: "TutorProfile update failed",
-            details: error instanceof Error ? error.message : error
-        });
+
+        
+        next(error)
     }
 }
 

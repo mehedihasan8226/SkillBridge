@@ -9,6 +9,8 @@ import { studentRouter } from "./modules/student/student.router";
 import { reviewRouter } from "./modules/review/review.router";
 import { CategoryRoutes } from "./modules/category/category.route";
 import { TutorCategoryRoutes } from "./modules/tutorCategory/tutorCategory.route";
+import errorHandler from "./middlewares/globalErrorHandler";
+import { notFound } from "./middlewares/notFound";
 
 const app  = express()
 
@@ -32,8 +34,8 @@ const app  = express()
 
   app.use("/api", TutorCategoryRoutes);
 
-
-
+ app.use(notFound)
+ app.use(errorHandler)
 
 
 
