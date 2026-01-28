@@ -3,21 +3,21 @@
 import { prisma } from "../lib/prisma";
 import { convertFromDB } from "better-auth/db";
 import { countReset } from "node:console";
+import { Role } from "../generated/prisma/enums";
 
 
 async function seedAdmin(){
     try {
         const adminData = {
-            name: "Admin",
-            email: "amdin@gmail.com",
-            // role: UserRole.ADMIN,
-            role: "Admin",
-            password: "admin1234"
+            name: process.env.adminData_name,
+            email: process.env.adminData_email,
+            role: Role.Admin,
+            password: process.env.adminData_password
         }
         //check user exist on db or not:
         const existingUser = await prisma.user.findUnique({
             where: {
-                email: adminData.email
+                email: adminData.email!
 
             }
         });
@@ -38,7 +38,7 @@ async function seedAdmin(){
         if(signUpAdmin.ok){
             await prisma.user.update({
                 where: {
-                    email: adminData.email
+                    email: adminData.email!
                 },
                 data: {
                     emailVerified: true
