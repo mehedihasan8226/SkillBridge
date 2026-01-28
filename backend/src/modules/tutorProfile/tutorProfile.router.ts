@@ -4,11 +4,11 @@ import auth, { UserRole } from "../../middlewares/auth"
 
 const router = express.Router()
 
-router.post("/", TutorProfileController.createTutorProfile)
-router.get("/", auth(UserRole.Tutor, UserRole.Admin), TutorProfileController.getAllTutorProfile)
+router.post("/", auth(UserRole.Admin), TutorProfileController.createTutorProfile)
+router.get("/",  TutorProfileController.getAllTutorProfile)
 router.get("/:id", TutorProfileController.getTutorProfileById)
 
-router.put("/:id", TutorProfileController.updateTutorAvailability)
+router.put("/:id", auth(UserRole.Tutor, UserRole.Admin), TutorProfileController.updateTutorAvailability)
 
 
 
