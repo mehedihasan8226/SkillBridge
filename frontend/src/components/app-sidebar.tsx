@@ -16,9 +16,10 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { adminRoutes } from "@/routes/adminRoutes"
-import { userRoutes } from "@/routes/userRoutes"
+import { studentRoutes } from "@/routes/studentRoutes"
 import { Route } from "@/types"
 import { Role } from "@/constants/role"
+import { tutorRoutes } from "@/routes/tutorRoutes"
 
 
 
@@ -30,8 +31,11 @@ export function AppSidebar({user, ...props }: {user: {role: string} & React.Comp
     case Role.admin:
         routes = adminRoutes
         break;
-    case Role.user:
-      routes = userRoutes
+    case Role.student:
+      routes = studentRoutes
+      break;
+    case Role.tutor:
+      routes = tutorRoutes
       break;
       default:
         routes = []

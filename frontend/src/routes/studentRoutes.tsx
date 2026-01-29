@@ -2,14 +2,14 @@ import { Route } from "@/types";
 import { url } from "inspector";
 import { title } from "process";
 
-export const userRoutes: Route[] = [
+export const studentRoutes: Route[] = [
     {
-      title: "Blog Management",
+      title: "Student Management",
 
       items: [
         {
-          title: "Create Blog",
-          url: "/dashboard/create-blog",
+          title: "Create student",
+          url: "/dashboard/create-student",
         },
         {
           title: "History",

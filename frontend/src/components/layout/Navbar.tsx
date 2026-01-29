@@ -40,6 +40,8 @@ import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { useEffect, useState } from "react";
 import { userService } from "@/services/user.service";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 
 
@@ -117,6 +119,7 @@ const  Navbar = ({
 }: Navbar1Props) => {
 
 const [user, setUser] = useState<Navbar1Props["user"]>(null);
+ const router = useRouter()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -136,7 +139,17 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
     fetchUser();
   }, []);
     
-  console.log("user: ", user);
+  // console.log("user: ", user);
+
+  const Logout = async () => {
+  try {
+    await authClient.signOut();
+    router.replace("/login");
+  } catch (err) {
+    console.error(err);
+  }
+};
+
   
 
 
@@ -194,10 +207,14 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={user.name}>Profile</Link>
+          <Link href="/userprofile">Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="/logout">Logout</Link>
+          <Link href="/dashboard">Dashboard</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          {/* <Link href="/logout">Logout</Link> */}
+          <Link href="" onClick={()=> Logout()}>Logout</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

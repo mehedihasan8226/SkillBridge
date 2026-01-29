@@ -1,5 +1,5 @@
 import { env } from "@/env";
-// import { cookies } from "next/headers";
+import { cookies } from "next/headers";
 
 // const AUTH_URL = process.env.AUTH_URL
 const AUTH_URL = env.AUTH_URL
@@ -36,15 +36,15 @@ export const userService = {
   //   }
   // },
 
-    getSession : async function (context: any){
-       const cookieHeader = context.req.headers.cookie || "";
+    getSession : async function (){
+      //  const cookieHeader = context.req.headers.cookie || "";
         try {
-            // const cookieStore = await cookies()
+            const cookieStore = await cookies()
               
               const res = await fetch(`${AUTH_URL}/get-session`,{
                 headers: {
-                  // Cookie: cookieStore.toString(),
-                   Cookie: cookieHeader 
+                  Cookie: cookieStore.toString(),
+                  //  Cookie: cookieHeader 
                 },
                 cache: "no-store"
               })
