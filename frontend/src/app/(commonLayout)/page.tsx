@@ -2,7 +2,7 @@
 
 import BlogCard from "@/components/modules/homepage/BlogCard";
 import { blogService } from "@/services/blog.service";
-import { BlogPost } from "@/types";
+import { BlogPost, Tutor } from "@/types";
 import Image from "next/image";
 import coffee from "../../../public/images/coffee.jpg";
 import { tutorService } from "@/services/tutorService";
@@ -20,7 +20,7 @@ export default async function Home() {
   //   postsPromise,
   // ]);
 
-  console.log("featuredPosts: ",featuredPosts);
+  // console.log("featuredPosts: ",featuredPosts);
   
 
   
@@ -79,9 +79,9 @@ export default async function Home() {
 // }
   return (
     <div className="max-w-7xl mx-auto px-4">
-      <div className="mb-12 mt-8 h-[calc(100vh-80px)] flex flex-col justify-center">
+      <div className="mb-12 mt-8  flex flex-col md:flex-row  gap-3 justify-center">
 
-          {featuredPosts.data.data.map((tutor: any) => (
+          {featuredPosts?.data?.data.map((tutor: any) => (
             <TutorCard key={tutor.id} tutor={tutor} />
               ))}
 
@@ -91,9 +91,11 @@ export default async function Home() {
   );
 }
 
+type TutorCardProps = {
+  tutor: Tutor;
+};
 
-
-const TutorCard = ({ tutor }) => {
+const TutorCard = ({ tutor }: TutorCardProps) => {
   return (
     <div className="bg-gray-700 dark:bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 w-full max-w-sm">
       

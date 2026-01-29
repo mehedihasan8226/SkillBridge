@@ -18,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation";
+
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -27,14 +29,10 @@ const formSchema = z.object({
 });
 
 export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
-  const handleGoogleLogin = async () => {
-    const data = authClient.signIn.social({
-      provider: "google",
-      callbackURL: "http://localhost:3000",
-    });
 
-    console.log(data);
-  };
+  const router = useRouter();
+
+
 
   const form = useForm({
     defaultValues: {
@@ -48,6 +46,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("Logging in");
       try {
         const { data, error } = await authClient.signIn.email(value);
+        
 
         if (error) {
           toast.error(error.message, { id: toastId });
@@ -55,6 +54,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         }
 
         toast.success("User Logged in Successfully", { id: toastId });
+           router.push("/");
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
@@ -129,14 +129,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button form="login-form" type="submit" className="w-full">
           Login
         </Button>
-        <Button
-          onClick={() => handleGoogleLogin()}
-          variant="outline"
-          type="button"
-          className="w-full"
-        >
-          Continue with Google
-        </Button>
+     
       </CardFooter>
     </Card>
   );

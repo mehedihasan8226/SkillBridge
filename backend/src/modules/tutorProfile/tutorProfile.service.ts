@@ -1,6 +1,7 @@
 import { Result } from "pg";
 import { PrismaAction } from "../../generated/prisma/internal/prismaNamespace";
 import { prisma } from "../../lib/prisma"
+import { AppError } from "../../middlewares/AppError";
 
 
 const createTutorProfile = async (payload: any ) => {
@@ -8,7 +9,11 @@ const createTutorProfile = async (payload: any ) => {
     const existing = await prisma.tutorProfile.findUnique({
         where: { userId: payload.userId }
         });
-    if (existing) throw new Error("Profile already exists for this user");
+    // if (existing) throw new Error("Profile already exists for this user");
+    
+  if (existing) {
+    throw new AppError("Profile already exists for this user", 409);
+  }
        
         const result = await prisma.tutorProfile.create({
                 data: payload

@@ -26,8 +26,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
+import { useEffect, useState } from "react";
+import { userService } from "@/services/user.service";
+
+
 
 interface MenuItem {
   title: string;
@@ -52,14 +66,26 @@ interface Navbar1Props {
       title: string;
       url: string;
     };
+ 
     signup: {
       title: string;
       url: string;
     };
   };
+
+  // user:
+    user?: {      
+    name: string;
+    email: string;
+    role?: string;
+    status?: string;
+    image?: string;
+    profileUrl?: string;
+  } | null;
+
 }
 
-const Navbar = ({
+const  Navbar = ({
   logo = {
     url: "/",
     src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQemylxnegqoSCsTLUxtkhEcLj_GjmksiDNVg&s",
@@ -86,8 +112,34 @@ const Navbar = ({
     login: { title: "Login", url: "/login" },
     signup: { title: "Register", url: "/register" },
   },
+  //  user = null, 
   className,
 }: Navbar1Props) => {
+
+const [user, setUser] = useState<Navbar1Props["user"]>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+     
+       const res = await fetch(`http://localhost:5000/user/me`,
+        {
+          credentials: "include",
+           cache: "force-cache" 
+
+         }
+       )
+            
+              const data = await res.json();
+              setUser(data.data)
+    };
+
+    fetchUser();
+  }, []);
+    
+  console.log("user: ", user);
+  
+
+
   return (
     <section className={cn("py-4", className)}>
       <div className="container mx-auto px-4">
@@ -114,7 +166,7 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <ModeToggle />
             <Button asChild variant="outline" size="sm">
               <Link href={auth.login.url}>{auth.login.title}</Link>
@@ -122,7 +174,46 @@ const Navbar = ({
             <Button asChild size="sm">
               <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
-          </div>
+          </div> */}
+
+        <div className="flex gap-2 items-center">
+  <ModeToggle />
+
+  {user ? (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="flex items-center gap-2">
+          {/* {user.image ? (
+            <img src={user.image} className="h-6 w-6 rounded-full" alt={user.name} />
+          ) : (
+            <span className="h-6 w-6 rounded-full bg-gray-400" />
+          )}
+          {user.name} */}
+          Profiles
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <Link href={user.name}>Profile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/logout">Logout</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ) : (
+    <>
+      <Button asChild variant="outline" size="sm">
+        <Link href={auth.login.url}>{auth.login.title}</Link>
+      </Button>
+      <Button asChild size="sm">
+        <Link href={auth.signup.url}>{auth.signup.title}</Link>
+      </Button>
+    </>
+  )}
+</div>
+
+
         </nav>
 
         {/* Mobile Menu */}

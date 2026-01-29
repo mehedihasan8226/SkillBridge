@@ -1,10 +1,12 @@
 import express, { Router } from "express"
 import { AuthController } from "./auth.controller"
+import auth, { UserRole } from "../../middlewares/auth"
+
 
 
 const router = express.Router()
 
-router.get("/me/:id", AuthController.getAuthProfileById)
+router.get("/me", auth(UserRole.Admin,UserRole.Student,UserRole.Tutor), AuthController.getAuthProfileById)
 
 router.get("/", AuthController.getAuthUser)
 

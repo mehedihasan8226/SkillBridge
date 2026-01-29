@@ -21,10 +21,15 @@ const getAuthUser = async (req: Request, res: Response, next: NextFunction)=>{
 
 const getAuthProfileById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id } = req.params;
-      
-        
-        const result = await AuthService.getAuthProfileById(id as string);
+
+        const userId = req.user?.id;
+
+        if (!userId) return res.status(401).json({ success: false, message: "Unauthorized" });
+
+        const result = await AuthService.getAuthProfileById(userId as string);
+
+            if (!result) return res.status(404).json({ success: false, message: "User not found" });
+
 
         if (!result) {
             return res.status(404).json({

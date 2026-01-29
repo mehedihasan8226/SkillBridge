@@ -1,80 +1,3 @@
-// import { Button } from "@/components/ui/button"
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card"
-// import {
-//   Field,
-//   FieldDescription,
-//   FieldGroup,
-//   FieldLabel,
-// } from "@/components/ui/field"
-// import { Input } from "@/components/ui/input"
-
-// export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
-//   return (
-//     <Card {...props}>
-//       <CardHeader>
-//         <CardTitle>Create an account</CardTitle>
-//         <CardDescription>
-//           Enter your information below to create your account
-//         </CardDescription>
-//       </CardHeader>
-//       <CardContent>
-//         <form>
-//           <FieldGroup>
-//             <Field>
-//               <FieldLabel htmlFor="name">Full Name</FieldLabel>
-//               <Input id="name" type="text" placeholder="John Doe" required />
-//             </Field>
-//             <Field>
-//               <FieldLabel htmlFor="email">Email</FieldLabel>
-//               <Input
-//                 id="email"
-//                 type="email"
-//                 placeholder="m@example.com"
-//                 required
-//               />
-//               <FieldDescription>
-//                 We&apos;ll use this to contact you. We will not share your email
-//                 with anyone else.
-//               </FieldDescription>
-//             </Field>
-//             <Field>
-//               <FieldLabel htmlFor="password">Password</FieldLabel>
-//               <Input id="password" type="password" required />
-//               <FieldDescription>
-//                 Must be at least 8 characters long.
-//               </FieldDescription>
-//             </Field>
-//             <Field>
-//               <FieldLabel htmlFor="confirm-password">
-//                 Confirm Password
-//               </FieldLabel>
-//               <Input id="confirm-password" type="password" required />
-//               <FieldDescription>Please confirm your password.</FieldDescription>
-//             </Field>
-//             <FieldGroup>
-//               <Field>
-//                 <Button type="submit">Create Account</Button>
-//                 <Button variant="outline" type="button">
-//                   Sign up with Google
-//                 </Button>
-//                 <FieldDescription className="px-6 text-center">
-//                   Already have an account? <a href="#">Sign in</a>
-//                 </FieldDescription>
-//               </Field>
-//             </FieldGroup>
-//           </FieldGroup>
-//         </form>
-//       </CardContent>
-//     </Card>
-//   )
-// }
-
 
 
 
@@ -98,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -105,23 +29,20 @@ const formSchema = z.object({
   name: z.string().min(1, "This field is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
+  role: z.enum(["Student", "Tutor"]),
 });
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
-  const handleGoogleLogin = async () => {
-    const data = authClient.signIn.social({
-      provider: "google",
-      callbackURL: "http://localhost:3000",
-    });
 
-    console.log(data);
-  };
+    const router = useRouter();
+
 
   const form = useForm({
     defaultValues: {
       name: "",
       email: "",
       password: "",
+      role: "Student",
     },
     validators: {
       onSubmit: formSchema,
@@ -137,6 +58,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         }
 
         toast.success("User Created Successfully", { id: toastId });
+         router.push("/login");
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
@@ -226,6 +148,37 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                 );
               }}
             />
+          {/* role: */}
+
+          <form.Field
+              name="role"
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+
+                return (
+                  <Field>
+                    <FieldLabel htmlFor={field.name}>Role</FieldLabel>
+                    <select
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="w-full border p-2 rounded"
+                    >
+                      <option value="Student">Student</option>
+                      <option value="Tutor">Tutor</option>
+                    </select>
+
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            />
+
+
           </FieldGroup>
         </form>
       </CardContent>
@@ -233,14 +186,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button form="login-form" type="submit" className="w-full">
           Register
         </Button>
-        <Button
-          onClick={() => handleGoogleLogin()}
-          variant="outline"
-          type="button"
-          className="w-full"
-        >
-          Continue with Google
-        </Button>
+      
       </CardFooter>
     </Card>
   );

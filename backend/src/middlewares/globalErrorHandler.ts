@@ -1,10 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import { startCPUProfile } from "node:v8";
 import { Prisma } from "../generated/prisma/client";
+import { AppError } from "./AppError";
 
 function errorHandler(err: any, req: Request, res: Response, next: NextFunction){
+    // custome error:
+         if (err instanceof AppError) {
+            return res.status(err.statusCode).json({
+            message: err.message,
+            error: null
+            });
+        }
 
-    
+        // other code:
 
         let statusCode = 500
         let errorMessage = "Internal server error"

@@ -11,6 +11,8 @@ import { CategoryRoutes } from "./modules/category/category.route";
 import { TutorCategoryRoutes } from "./modules/tutorCategory/tutorCategory.route";
 import errorHandler from "./middlewares/globalErrorHandler";
 import { notFound } from "./middlewares/notFound";
+import session from "express-session";
+
 
 const app  = express()
 
@@ -33,6 +35,20 @@ const app  = express()
   app.use("/api/categories", CategoryRoutes);
 
   app.use("/api", TutorCategoryRoutes);
+
+
+  
+app.use(session({
+  secret: process.env.SESSION_SECRET!,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false, // true only for HTTPS
+    sameSite: "lax" // or "none" if cross-domain with https
+  }
+}));
+
 
  app.use(notFound)
  app.use(errorHandler)
