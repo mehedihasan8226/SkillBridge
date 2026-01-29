@@ -2,6 +2,7 @@
 import { NextFunction, Request, Response } from "express";
 import { TutorProfileService } from "./tutorProfile.service";
 
+
 const createTutorProfile = async (req: Request, res: Response, next: NextFunction) =>{
     try {
         const user = req.user;
@@ -12,6 +13,8 @@ const createTutorProfile = async (req: Request, res: Response, next: NextFunctio
         
     } catch (error) {
 
+        console.log(error);
+        
         next(error)
     }
 }
@@ -23,7 +26,11 @@ const getAllTutorProfile = async (req: Request, res: Response, next: NextFunctio
         try {
         
             const result = await TutorProfileService.getAllTutorProfile()
-            res.status(200).json(result)
+            res.status(200).json({
+            success: true,
+            data: result
+                }
+            )
             
         } catch (error) {
 
