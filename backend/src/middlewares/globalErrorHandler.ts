@@ -5,18 +5,34 @@ import { AppError } from "./AppError";
 
 function errorHandler(err: any, req: Request, res: Response, next: NextFunction){
     // custome error:
-         if (err instanceof AppError) {
-            return res.status(err.statusCode).json({
-            message: err.message,
-            error: null
-            });
-        }
+        //  if (err instanceof AppError) {
+        //     return res.status(err.statusCode).json({
+        //     message: err.message,
+        //     error: null
+        //     });
+        // }
 
         // other code:
 
-        let statusCode = 500
-        let errorMessage = "Internal server error"
-        let errorDetails = err
+        // let statusCode = 500 
+        // let errorMessage = "Internal server error"
+        // let errorDetails = err
+
+        let statusCode = err.statusCode || 500;
+    let errorMessage = err.message || "Internal server error";
+    let errorDetails = err;
+
+
+    // Sometimes instanceof fails if there are multiple versions of the class
+    if (err instanceof AppError || err.name === 'AppError') {
+        return res.status(err.statusCode).json({
+            success: false,
+            message: err.message,
+            error: null
+        });
+    }
+
+        
 
         if(err instanceof Prisma.PrismaClientValidationError){
             statusCode = 400
@@ -57,8 +73,19 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
         res.status(statusCode)
         res.json({
             message: errorMessage,
-            error: errorDetails
+            error: errorDetails,
+
         })
+
+
+        // Final fallback - prevents the "200 OK" mystery
+    return res.status(statusCode).json({
+        success: false,
+        message: errorMessage,
+        error: process.env.NODE_ENV === 'development' ? errorDetails : undefined,
+    });
+
+        
 }
 
 export default errorHandler

@@ -15,3 +15,25 @@ export interface Tutor {
   teachingMode:  "Online" | "Offline" | "Both"
   monthlyRate: number;
 }
+
+
+
+
+export type Gender = "Male" | "Female" | "Other";
+
+export interface TutorProfile {
+  phone: string;
+  qualification: string;
+  university: string;
+  majorSubject: string;
+  experience: number;
+  monthlyRate: number;
+  availability: boolean;
+
+  profileImage: string | null;
+  gender: Gender | null;
+  dateOfBirth: string | null;
+  nationality: string | null;
+  bio: string | null;
+  languages: string[] | null;
+}

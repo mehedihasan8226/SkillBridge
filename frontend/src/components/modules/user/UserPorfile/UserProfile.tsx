@@ -1,25 +1,51 @@
 'use client'
 
+import { getOwnProfile } from "@/actions/blog.action";
 import { User } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ProfileCard() {
   const [user, setUser] = useState<User | null>(null);
 
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const res = await fetch("http://localhost:5000/user/me", {
+  //       credentials: "include",
+  //       cache: "no-store",
+  //     });
+
+  //     const data = await res.json();
+  //     setUser(data?.data);
+  //   };
+
+  //   fetchUser();
+  // }, []);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const res = await getOwnProfile()
+
+  //     const data = await res.json();
+  //     setUser(data?.data);
+  //   };
+
+  //   fetchUser();
+  // }, []);
+  
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await fetch("http://localhost:5000/user/me", {
-        credentials: "include",
-        cache: "no-store",
-      });
+  const fetchUser = async () => {
+    const data = await getOwnProfile();
+    setUser(data?.data);
+    console.log(data);
+    
+  };
 
-      const data = await res.json();
-      setUser(data?.data);
-    };
+  fetchUser();
+}, []);
 
-    fetchUser();
-  }, []);
+console.log(user);
+
 
   // Guard
   if (!user) {
@@ -40,8 +66,8 @@ export default function ProfileCard() {
           <div className="relative h-24 w-24 rounded-full overflow-hidden border 
                           border-gray-200 dark:border-gray-600">
             <Image
-              src={user.image || "/avatar.png"}
-              alt={user.name}
+              src={user?.image || "/avatar.png"}
+              alt={user?.name || "User avatar"}
               fill
               className="object-cover"
             />
@@ -51,10 +77,10 @@ export default function ProfileCard() {
         {/* Info */}
         <div className="text-center mt-4">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {user.name}
+            {user?.name}
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            {user.email}
+            {user?.email}
           </p>
         </div>
 
@@ -63,20 +89,20 @@ export default function ProfileCard() {
           <span className="px-3 py-1 text-xs rounded-full 
                            bg-blue-100 text-blue-600 
                            dark:bg-blue-900 dark:text-blue-300">
-            {user.role}
+            {user?.role}
           </span>
 
           <span
             className={`px-3 py-1 text-xs rounded-full ${
-              user.status === "unban"
+              user?.status === "unban"
                 ? "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300"
                 : "bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300"
             }`}
           >
-            {user.status}
+            {user?.status}
           </span>
 
-          {user.emailVerified && (
+          {user?.emailVerified && (
             <span className="px-3 py-1 text-xs rounded-full 
                              bg-purple-100 text-purple-600 
                              dark:bg-purple-900 dark:text-purple-300">
@@ -94,13 +120,14 @@ export default function ProfileCard() {
             View Profile
           </button>
 
-          <button className="flex-1 rounded-lg border 
+          <Link href="/dashboard/profile" className="flex-1 rounded-lg border 
                              border-gray-300 dark:border-gray-600
                              py-2 text-sm 
                              text-gray-700 dark:text-gray-300
                              hover:bg-gray-50 dark:hover:bg-gray-700">
-            Message
-          </button>
+            Edit Profile
+          </Link>
+   
         </div>
       </div>
     </div>

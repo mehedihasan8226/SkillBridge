@@ -8,33 +8,39 @@ const API_URL = env.API_URL
 export const userService = {
 
   
-  //    getCurrentUser: async function (context?: { req: any }) {
-  //   try {
-  //     const headers: Record<string, string> = {
-  //       "Content-Type": "application/json",
-  //     };
+    //  getCurrentUser: async function (context?: { req: any }) {
+     getCurrentUser: async function () {
+    try {
+      // const headers: Record<string, string> = {
+      //   "Content-Type": "application/json",
+      // };
 
-  //     if (context?.req?.headers?.cookie) {
-  //       headers["Cookie"] = context.req.headers.cookie;
-  //     }
+      // if (context?.req?.headers?.cookie) {
+      //   headers["Cookie"] = context.req.headers.cookie;
+      // }
+      const cookieStore = await cookies();
 
-  //     const res = await fetch(`${API_URL}/user/me`, {
-  //       headers,
-  //       cache: "no-store", 
-  //     });
+      const res = await fetch(`${API_URL}/user/me`, {
+        headers: {
+        Cookie: cookieStore.toString(),
+      },
+        cache: "no-store", 
+        credentials: "include",
+        
+      });
 
-  //     const data = await res.json();
+      const data = await res.json();
 
-  //     if (!data) {
-  //       return { data: null, error: { message: "data is missing!" } };
-  //     }
+      if (!data) {
+        return { data: null, error: { message: "data is missing!" } };
+      }
 
-  //     return { data: data, error: null };
-  //   } catch (error) {
-  //     console.error(error);
-  //     return { data: null, error: { message: "Something went wrong." } };
-  //   }
-  // },
+      return { data: data, error: null };
+    } catch (error) {
+      console.error(error);
+      return { data: null, error: { message: "Something went wrong." } };
+    }
+  },
 
     getSession : async function (){
       //  const cookieHeader = context.req.headers.cookie || "";

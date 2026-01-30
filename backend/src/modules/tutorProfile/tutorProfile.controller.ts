@@ -1,6 +1,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import { TutorProfileService } from "./tutorProfile.service";
+import { prisma } from "../../lib/prisma";
 
 
 const createTutorProfile = async (req: Request, res: Response, next: NextFunction) =>{
@@ -8,7 +9,8 @@ const createTutorProfile = async (req: Request, res: Response, next: NextFunctio
         const user = req.user;
         req.body.userId = user?.id
         const result = await TutorProfileService.createTutorProfile(req.body)
-    
+        
+
         res.status(201).json(result)
         
     } catch (error) {

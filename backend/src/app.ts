@@ -44,8 +44,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // true only for HTTPS
-    sameSite: "lax" // or "none" if cross-domain with https
+    secure: false, 
+    sameSite: "lax" 
   }
 }));
 
