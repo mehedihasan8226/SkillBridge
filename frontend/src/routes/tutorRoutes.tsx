@@ -8,12 +8,16 @@ export const tutorRoutes: Route[] = [
 
       items: [
         {
-          title: "Create Tutor",
-          url: "/dashboard/create-tutor",
+          title: "Edit Profile",
+          url: "/tutor-dashboard/profile-data-add",
+        },
+        {
+          title: "Availability",
+          url: "/tutor-dashboard/tutoravailability",
         },
         {
           title: "History",
-          url: "/dashboard/history",
+          url: "/tutor-dashboard/history",
         },
 
       ],

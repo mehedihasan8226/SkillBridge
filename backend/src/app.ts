@@ -12,6 +12,7 @@ import { TutorCategoryRoutes } from "./modules/tutorCategory/tutorCategory.route
 import errorHandler from "./middlewares/globalErrorHandler";
 import { notFound } from "./middlewares/notFound";
 import session from "express-session";
+import { TutorAvailabilityRouter } from "./modules/tutorAvailability/tutorAvailability.router";
 
 
 const app  = express()
@@ -35,6 +36,7 @@ const app  = express()
   app.use("/api/categories", CategoryRoutes);
 
   app.use("/api", TutorCategoryRoutes);
+  app.use("/tutoravailability", TutorAvailabilityRouter);
 
 
   

@@ -2,7 +2,8 @@
 
 "use client";
 
-import { createTutorProfiles } from "@/actions/blog.action";
+
+import { createTutorProfiles } from "@/actions/tutor.action";
 import { Button } from "@/components/ui/button";
 import {
   Card,

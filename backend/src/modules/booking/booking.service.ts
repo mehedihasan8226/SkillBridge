@@ -21,14 +21,13 @@ import { prisma } from "../../lib/prisma"
 
 
 const createBooking = async (data: any) => {
-    // chacking rate from TutorProfile
+   
     const tutor = await prisma.tutorProfile.findUnique({
         where: { id: data.tutorId }
     });
 
     if (!tutor) throw new Error("Tutor not found");
 
-    //  availability and check if booked
     const availability = await prisma.tutorAvailability.findUnique({
         where: { id: data.tutorAvailabilityId }
     });
@@ -39,6 +38,8 @@ const createBooking = async (data: any) => {
     const result = await prisma.booking.create({
         data: {
             ...data,
+            // userId: tutor.userId,
+            // tutorId: tutor.id,
             sessionDate: new Date(data.sessionDate),
             startTime: new Date(data.startTime),
             endTime: new Date(data.endTime),

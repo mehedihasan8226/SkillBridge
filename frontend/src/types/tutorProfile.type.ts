@@ -37,3 +37,10 @@ export interface TutorProfile {
   bio: string | null;
   languages: string[] | null;
 }
+
+
+export interface Tutoravailability {
+  startTime: string
+  endTime: string
+  isBooked: boolean | null
+}

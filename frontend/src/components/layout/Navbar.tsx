@@ -42,6 +42,7 @@ import { useEffect, useState } from "react";
 import { userService } from "@/services/user.service";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { getSession } from "@/actions/session.action";
 
 
 
@@ -118,7 +119,8 @@ const  Navbar = ({
   className,
 }: Navbar1Props) => {
 
-const [user, setUser] = useState<Navbar1Props["user"]>(null);
+const [user, setUser] = useState<Navbar1Props["user"] | null >(null);
+const [loading, setLoading] = useState(true);
  const router = useRouter()
 
   // useEffect(() => {
@@ -138,8 +140,21 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
 
   //   fetchUser();
   // }, []);
+  useEffect(() => {
+    const fetchUser = async () => {
+     
+       const res = await getSession()
+              setUser(res.data || null)
+              setLoading(false);
+    };
+
+    fetchUser();
+  }, []);
+
+
+  
     
-  // console.log("user: ", user);
+  console.log("user Value: ", user);
 
   const Logout = async () => {
   try {
@@ -150,6 +165,8 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
   }
 };
 
+
+  if (loading) return null;
   
 
 
@@ -192,7 +209,7 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
         <div className="flex gap-2 items-center">
   <ModeToggle />
 
-  {!user ? (
+  {user ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -210,7 +227,21 @@ const [user, setUser] = useState<Navbar1Props["user"]>(null);
           <Link href="/userprofile">Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href="/dashboard">Dashboard</Link>
+
+         {user && (
+              <Link
+                href={
+                  user?.role === "Tutor"
+                    ? "/tutor-dashboard"
+                    : user?.role === "Student"
+                    ? "/student-dashboard"
+                    : "/admin-dashboard"
+                }
+              >
+                Dashboard
+              </Link>
+            )}
+
         </DropdownMenuItem>
         <DropdownMenuItem>
           {/* <Link href="/logout">Logout</Link> */}

@@ -26,7 +26,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Admin rules
-  if (isAdmin && pathname.startsWith("/dashboard")) {
+  if (isAdmin && pathname.startsWith("/tutor-dashboard")) {
     return NextResponse.redirect(new URL("/admin-dashboard", request.url));
   }
   if (isAdmin && pathname.startsWith("/student-dashboard")) {
@@ -39,10 +39,10 @@ export async function proxy(request: NextRequest) {
 
   // Tutor rules
   if (isTutor && pathname.startsWith("/admin-dashboard")) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/tutor-dashboard", request.url));
   }
   if (isTutor && pathname.startsWith("/student-dashboard")) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/tutor-dashboard", request.url));
   }
 
 //   if (isTutor && pathname !== "/dashboard") {
@@ -53,7 +53,7 @@ export async function proxy(request: NextRequest) {
   if (isStudent && pathname.startsWith("/admin-dashboard")) {
     return NextResponse.redirect(new URL("/student-dashboard", request.url));
   }
-  if (isStudent && pathname.startsWith("/dashboard")) {
+  if (isStudent && pathname.startsWith("/tutor-dashboard")) {
     return NextResponse.redirect(new URL("/student-dashboard", request.url));
   }
 
@@ -67,8 +67,8 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/dashboard",
-    "/dashboard/:path*",
+    "/tutor-dashboard",
+    "/tutor-dashboard/:path*",
     "/admin-dashboard",
     "/admin-dashboard/:path*",
     "/student-dashboard",
@@ -76,26 +76,4 @@ export const config = {
   ],
 };
 
-
-
-// import { NextRequest, NextResponse } from "next/server";
-// import { userService } from "./services/user.service";
-// import { Role } from "./constants/role";
-
-// export async function proxy(request: NextRequest) {
-  
-//   return NextResponse.next();
-// }
-
-
-// export const config = {
-//   matcher: [
-//     "/dashboard",
-//     "/dashboard/:path*",
-//     "/admin-dashboard",
-//     "/admin-dashboard/:path*",
-//     "/student-dashboard",
-//     "/student-dashboard/:path*",
-//   ],
-// };
 

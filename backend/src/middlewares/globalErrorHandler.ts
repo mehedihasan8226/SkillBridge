@@ -70,12 +70,12 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
             }
         }
 
-        res.status(statusCode)
-        res.json({
-            message: errorMessage,
-            error: errorDetails,
+        // res.status(statusCode)
+        // res.json({
+        //     message: errorMessage,
+        //     error: errorDetails,
 
-        })
+        // })
 
 
         // Final fallback - prevents the "200 OK" mystery

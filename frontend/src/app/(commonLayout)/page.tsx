@@ -5,11 +5,14 @@ import { blogService } from "@/services/blog.service";
 import { BlogPost, Tutor } from "@/types";
 import Image from "next/image";
 import coffee from "../../../public/images/coffee.jpg";
-import { tutorService } from "@/services/tutorService";
+import { tutorService } from "@/services/tutor.service";
+import Link from "next/link";
 
 export default async function Home() {
   // const featuredPostsPromise = blogService.getBlogPosts({ isFeatured: true });
   const featuredPosts = await tutorService.getTutorPosts();
+  console.log(featuredPosts);
+  
   // const postsPromise = blogService.getBlogPosts(
   //   { limit: "3" },
   //   { revalidate: 10 },
@@ -144,9 +147,15 @@ const TutorCard = ({ tutor }: TutorCardProps) => {
           ৳ {tutor.monthlyRate}/month
         </p>
 
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        {/* <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
           View Profile
-        </button>
+        </button> */}
+        <Link
+        href={`/${tutor.id}`}
+        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 inline-block"
+      >
+        View Profile
+      </Link>
       </div>
     </div>
   );

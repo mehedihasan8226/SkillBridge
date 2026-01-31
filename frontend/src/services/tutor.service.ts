@@ -25,7 +25,7 @@
 
 
 import { env } from "@/env";
-import { TutorProfile } from "@/types/tutorProfile.type";
+import { Tutoravailability, TutorProfile } from "@/types/tutorProfile.type";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -100,36 +100,6 @@ export const tutorService = {
   },
 
 
-  // createTutorProfile: async (profileData: TutorProfile) => {
-  //     try {
-  //       const cookieStore = await cookies();
-  
-  //       const res = await fetch(`${API_URL}/tutorprofiles`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Cookie: cookieStore.toString(),
-  //         },
-  //         credentials: "include",
-  //         body: JSON.stringify(profileData),
-  //       });
-  
-  //       const data = await res.json();
-  
-  //       if (data.error) {
-          
-          
-  //         return {
-  //           data: null,
-  //           error: { message: "Error: Post not created." },
-  //         };
-  //       }
-  
-  //       return { data: data, error: null };
-  //     } catch (err) {
-  //       return { data: null, error: { message: "Something Went Wrong" } };
-  //     }
-  //   },
 
 
   // tutor.service.ts
@@ -167,9 +137,9 @@ createTutorProfile: async (profileData: TutorProfile) => {
 },
 
 
-  getBlogById: async function (id: string) {
+  getTutorProfileById: async function (id: string) {
     try {
-      const res = await fetch(`${API_URL}/posts/${id}`);
+      const res = await fetch(`${API_URL}/tutorprofiles/${id}`);
 
       const data = await res.json();
 
@@ -178,6 +148,41 @@ createTutorProfile: async (profileData: TutorProfile) => {
       return { data: null, error: { message: "Something Went Wrong" } };
     }
   },
+
+
+  createTutoravailAbility: async (tutoravailAbilityData: Tutoravailability) => {
+  try {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
+    const res = await fetch(`${API_URL}/tutoravailability`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": cookieHeader,
+      },
+      body: JSON.stringify(tutoravailAbilityData),
+    });
+
+ 
+    if (!res.ok) {
+      const errorText = await res.text(); 
+      console.error("Backend Error Response:", errorText);
+      return { data: null, error: { message: `Backend error: ${res.status}` }, status: res.status };
+    }
+
+
+    const result = await res.json();
+    console.log("Backend Success Data:", result);
+
+    return { data: result, error: null };
+
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+},
+
 
 
    createBlogPost: async (blogData: BlogData) => {

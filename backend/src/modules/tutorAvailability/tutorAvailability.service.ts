@@ -2,11 +2,20 @@ import { prisma } from "../../lib/prisma";
 
 
 const createTutorAvailability = async (payload: any) => {
+   
+    const { startTime, endTime,userId, ...rest } = payload;
+
+    const availability = await prisma.tutorProfile.findUnique({
+        where: { userId: payload.userId }
+    });
+
+
     const result = await prisma.tutorAvailability.create({
         data: {
-            ...payload,
-            startTime: new Date(payload.startTime),
-            endTime: new Date(payload.endTime),
+            tutorId: availability?.id,
+            ...rest, 
+            startTime: new Date(startTime), 
+            endTime: new Date(endTime),     
         },
     });
 

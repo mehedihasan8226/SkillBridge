@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import auth, { UserRole } from "../../middlewares/auth";
 import { TutorAvailabilityController } from "./tutorAvailability.controller";
 
@@ -10,4 +10,4 @@ router.get("/", auth(UserRole.Tutor), TutorAvailabilityController.getTutorAvaila
 router.put("/:id", auth(UserRole.Tutor), TutorAvailabilityController.updateTutorAvailability);
 router.delete("/:id", auth(UserRole.Tutor), TutorAvailabilityController.deleteTutorAvailability);
 
-export default router;
+export const TutorAvailabilityRouter: Router = router

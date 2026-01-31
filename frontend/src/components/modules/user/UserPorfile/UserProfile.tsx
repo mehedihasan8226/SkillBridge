@@ -1,6 +1,7 @@
 'use client'
 
-import { getOwnProfile } from "@/actions/blog.action";
+
+import { getOwnProfile } from "@/actions/tutor.action";
 import { User } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,8 +37,8 @@ export default function ProfileCard() {
   useEffect(() => {
   const fetchUser = async () => {
     const data = await getOwnProfile();
-    setUser(data?.data);
     console.log(data);
+    setUser(data?.data);
     
   };
 

@@ -3,11 +3,12 @@ import { TutorAvailabilityService } from "./tutorAvailability.service";
 
 const createTutorAvailability = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const tutorId = req.user?.id;
+        const userId = req.user?.id;
+
         const result = await TutorAvailabilityService.createTutorAvailability({
 
             ...req.body,
-            tutorId,
+            userId,
         });
 
         res.status(201).json(result);
