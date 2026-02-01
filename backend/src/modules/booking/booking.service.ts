@@ -3,57 +3,41 @@ import { PrismaAction } from "../../generated/prisma/internal/prismaNamespace";
 import { prisma } from "../../lib/prisma"
 
 
-// const createBooking = async (data: any) => {
-
-//         const result = await prisma.booking.create({
-//                 // data: payload
-//                 data: {
-//                 ...data,
-//                 sessionDate: new Date(data.sessionDate),
-//                 startTime: new Date(data.startTime),
-//                 endTime: new Date(data.endTime),
-//                 }
-//         })
-
-//         return result;
-
-// }
-
 
 const createBooking = async (data: any) => {
-   
+    const { userId, availabilityId } = data;
+
     const tutor = await prisma.tutorProfile.findUnique({
-        where: { id: data.tutorId }
+        where: { userId: userId } 
     });
 
     if (!tutor) throw new Error("Tutor not found");
 
     const availability = await prisma.tutorAvailability.findUnique({
-        where: { id: data.tutorAvailabilityId }
+        where: { id: availabilityId }
     });
+
     if (!availability || availability.isBooked) {
         throw new Error("Selected slot is not available");
     }
 
-    const result = await prisma.booking.create({
-        data: {
-            ...data,
-            // userId: tutor.userId,
-            // tutorId: tutor.id,
-            sessionDate: new Date(data.sessionDate),
-            startTime: new Date(data.startTime),
-            endTime: new Date(data.endTime),
-            price: tutor.monthlyRate, 
-        },
-    });
+    return await prisma.$transaction(async (tx) => {
+        const booking = await tx.booking.create({
+            data: {
+                userId: userId, 
+                tutorId: tutor.id,
+                tutorAvailabilityId: availability.id,
+                price: tutor.monthlyRate,
+            },
+        });
 
-    // slot as booked
-    await prisma.tutorAvailability.update({
-        where: { id: data.tutorAvailabilityId },
-        data: { isBooked: true }
-    });
+        await tx.tutorAvailability.update({
+            where: { id: availabilityId },
+            data: { isBooked: true }
+        });
 
-    return result;
+        return booking;
+    });
 };
 
 

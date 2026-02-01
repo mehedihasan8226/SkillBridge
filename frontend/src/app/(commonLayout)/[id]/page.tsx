@@ -3,6 +3,8 @@
 // import { getTutorProfilesById } from "@/actions/blog.action";
 import { getTutorProfilesById } from "@/actions/tutor.action";
 import Image from "next/image";
+import Link from "next/link";
+import BookingButton from "./[bookingId]/page";
 
 type PageProps = {
   params: {
@@ -31,9 +33,9 @@ export default async function TutorProfilePage(
   }
 
   const tutor = res?.data;
-  console.log("tutor:", tutor);
+  console.log("tutor:", tutor.data.tutorAvailabilities);
   console.log("tutor:", tutor?.data?.user?.name);
-  
+  const availabilities = tutor?.data?.tutorAvailabilities || [];
   const imageSrc =
   tutor?.data?.profileImage?.startsWith("http")
     ? tutor.data.profileImage
@@ -100,9 +102,24 @@ export default async function TutorProfilePage(
 
           {/* CTA */}
           <div className="pt-4">
-            <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
-              Contact Tutor
-            </button>
+            {/* <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
+              Book Now
+            </button> */}
+            {/* <Link 
+            className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
+            href={`${tutor?.id}/${tutor?.data?.tutorAvailabilities?.id}`}>Book Now</Link>
+             */}
+             <div className="flex flex-col gap-4">
+      <h3>Available Slots:</h3>
+      {availabilities.map((slot: any) => (
+        <div key={slot.id} className="p-4 border rounded flex justify-between">
+          <span>{slot.day} at {slot.time}</span>
+         
+        
+          <BookingButton bookingId={slot.id } />
+        </div>
+      ))}
+    </div>
           </div>
         </div>
       </div>
@@ -110,7 +127,7 @@ export default async function TutorProfilePage(
   );
 }
 
-/* Small reusable component */
+/*  reusable component */
 function Info({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-gray-50 dark:bg-zinc-800 p-3 rounded-lg">
