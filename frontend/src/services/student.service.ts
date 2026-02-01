@@ -34,8 +34,6 @@ export const studentService = {
     }
 
   
-
-
     const result = await res.json();
     console.log("Backend Success Data:", result);
 
@@ -71,7 +69,6 @@ export const studentService = {
       return { data: errorJson, error: { message: `Backend error: ${res.status}` }, status: res.status };
     }
 
-  
 
 
     const result = await res.json();

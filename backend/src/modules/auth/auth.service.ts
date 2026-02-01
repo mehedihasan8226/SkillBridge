@@ -18,7 +18,11 @@ const getAuthProfileById = async (id: string) => {
           id: id.trim(),
         },
     
-        // include: { user: true } 
+        include: { 
+            tutorProfile: true,
+            bookings: true,
+            reviews: true
+        } 
     });
 
     return result;

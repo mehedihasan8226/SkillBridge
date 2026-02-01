@@ -136,6 +136,40 @@ createTutorProfile: async (profileData: TutorProfile) => {
   }
 },
 
+getTutorProfile: async (tutorId?: string) => {
+  try {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
+    // If you have a tutorId, append it to the URL
+    const url = tutorId ? `${API_URL}/tutorprofiles/${tutorId}` : `${API_URL}/tutorprofiles`;
+
+    const res = await fetch(url, {
+      method: "GET", // Changed from POST
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": cookieHeader,
+      },
+      // GET requests cannot have a body
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Backend Error Response:", errorText);
+      return { data: null, error: { message: `Backend error: ${res.status}` }, status: res.status };
+    }
+
+    const result = await res.json();
+    console.log("Backend Success Data:", result);
+
+    return { data: result, error: null };
+
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+},
+
 
   getTutorProfileById: async function (id: string) {
     try {
@@ -212,6 +246,46 @@ createTutorProfile: async (profileData: TutorProfile) => {
       return { data: null, error: { message: "Something Went Wrong" } };
     }
   },
+
+
+
+   getbookingbyuserid: async () => {
+    try {
+      const cookieStore = await cookies();
+      const cookieHeader = cookieStore.toString();
+  
+  
+      const url = `${API_URL}/booking/getbookingbyuserid`;
+  
+      const res = await fetch(url, {
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          "Cookie": cookieHeader,
+        },
+  
+      });
+      // console.log("getAssignCategories server: ",res);
+      
+  
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorJson = JSON.parse(errorText);
+        console.error("Backend Error Response:", errorText);
+        return { data: errorJson, error: { message: `Backend error: ${res.status}` }, status: res.status };
+      }
+  
+      const result = await res.json();
+      console.log("Backend Success Data:", result);
+  
+      return { data: result, error: null };
+  
+    } catch (err) {
+      console.error("Fetch Exception:", err);
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  },
+  
 
 
 };

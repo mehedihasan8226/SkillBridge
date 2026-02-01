@@ -65,8 +65,25 @@ const getBookingById = async (id: string) => {
 }
 
 
+const getBookingByUserId = async (id: string) => {
+
+        const result = await prisma.booking.findMany({
+               where: { userId: id.trim() },
+                include: {
+                user: true,              
+                tutor: true,              
+                tutorAvailability: true, 
+                reviews: true,
+                },
+        });
+
+        return result;
+}
+
+
 export const BookingService = {
         createBooking,
         getAllBooking,
-        getBookingById
+        getBookingById,
+        getBookingByUserId
 }

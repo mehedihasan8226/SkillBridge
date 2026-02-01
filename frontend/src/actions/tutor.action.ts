@@ -37,3 +37,20 @@ export const createTutoravailability = async (data: Tutoravailability) => {
   
   return res; 
 };
+
+export const getTutorProfile = async () => {
+  const res = await tutorService.getTutorProfile();
+  
+  console.log("getTutorProfile Result:", res); 
+  
+  return res; 
+};
+
+
+export const getbookingbyuserid = async () => {
+  const res = await tutorService.getbookingbyuserid();
+  
+  console.log("getbookingbyuserid Result:", res); 
+  
+  return res; 
+};

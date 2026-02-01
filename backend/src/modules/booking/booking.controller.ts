@@ -60,12 +60,41 @@ const getBookingById = async (req: Request, res: Response, next: NextFunction) =
     }
 }
 
+const getBookingByUserId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+            const userId = req.user?.id
+
+            console.log("userId: ", userId);
+            
+
+        
+        const result = await BookingService.getBookingByUserId(userId as string);
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Booking fetched successfully",
+            data: result
+        });
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 
 export const BookingController = {
     createBooking,
     getAllBooking,
-    getBookingById
+    getBookingById,
+    getBookingByUserId
 
 }
 

@@ -4,8 +4,9 @@ import auth, { UserRole } from "../../middlewares/auth"
 
 const router = express.Router()
 
-router.post("/:availabilityId", auth(UserRole.Student, UserRole.Admin, UserRole.Tutor), BookingController.createBooking)
 router.get("/", BookingController.getAllBooking)
+router.get("/getbookingbyuserid",auth(UserRole.Student, UserRole.Admin, UserRole.Tutor), BookingController.getBookingByUserId)
+router.post("/:availabilityId", auth(UserRole.Student, UserRole.Admin, UserRole.Tutor), BookingController.createBooking)
 router.get("/:id", BookingController.getBookingById)
 
 

@@ -46,7 +46,7 @@ model TutorProfile {
 model Category {
   id     String          @id @default(ulid())
   name   String
-  tutors TutorCategory[] // relation to join table
+  tutors TutorCategory[] 
 }
 
 model TutorCategory {

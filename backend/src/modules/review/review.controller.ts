@@ -6,6 +6,8 @@ import { prisma } from "../../lib/prisma";
 const createReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = req.user;
+        console.log(user?.id);
+        
         if (!user) throw new Error("User not authenticated");
 
         const { rating, comment } = req.body;

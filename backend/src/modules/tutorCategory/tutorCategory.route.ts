@@ -5,8 +5,13 @@ import auth, { UserRole } from "../../middlewares/auth";
 const router = express.Router();
 
 router.post(
-  "/tutors/:tutorId/categories", auth(UserRole.Admin),
+  "/tutor-categories", auth(UserRole.Admin),
   TutorCategoryController.assignCategories
+);
+
+router.get(
+  "/tutor-categories", auth(UserRole.Admin),
+  TutorCategoryController.getAllAssignCategoryTutor
 );
 
 

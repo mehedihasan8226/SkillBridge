@@ -17,8 +17,6 @@ const createStudent = async (req: Request, res: Response, next: NextFunction) =>
 }
 
 
-
-
 const getAllStudent = async (req: Request, res: Response, next: NextFunction)=>{
         try {
         

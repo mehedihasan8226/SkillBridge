@@ -1,10 +1,13 @@
+import { tuple } from "better-auth";
 import { prisma } from "../../lib/prisma";
+
 
 
 const assignCategoriesToTutor = async (
   tutorId: string,
   categoryIds: string[]
 ) => {
+  
   const data = categoryIds.map((categoryId) => ({
     tutorId,
     categoryId
@@ -12,16 +15,34 @@ const assignCategoriesToTutor = async (
 
   await prisma.tutorCategory.createMany({
     data,
-    skipDuplicates: true
+    skipDuplicates: true 
   });
 
   return prisma.tutorCategory.findMany({
     where: { tutorId },
     include: {
-      category: true
+      category: true,
+      tutor: true 
     }
   });
 };
+
+const getAllAssignCategoryTutor = async ()=>{
+        
+        const result = await prisma.tutorCategory.findMany(
+          {
+            where:{
+              
+            },
+            include:{
+              tutor: true,
+              category: true
+            }
+          }
+        )
+        return result
+}
+
 
 const removeCategoryFromTutor = async (
   tutorId: string,
@@ -39,5 +60,6 @@ const removeCategoryFromTutor = async (
 
 export const TutorCategoryService = {
   assignCategoriesToTutor,
+  getAllAssignCategoryTutor,
   removeCategoryFromTutor
 };

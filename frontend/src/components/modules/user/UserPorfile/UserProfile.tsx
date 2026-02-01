@@ -2,6 +2,7 @@
 
 
 import { getOwnProfile } from "@/actions/tutor.action";
+import { Role } from "@/constants/role";
 import { User } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -113,24 +114,43 @@ console.log(user);
         </div>
 
         {/* Actions */}
-        <div className="mt-5 flex gap-2">
-          <button className="flex-1 rounded-lg 
+        {
+          user.role !=Role.student && (
+
+                   <div className="mt-5 flex gap-2">
+          <Link href="/viewprofile" 
+          className=" rounded-lg mx-auto
                              bg-black text-white 
                              dark:bg-white dark:text-black
-                             py-2 text-sm hover:opacity-90">
+                             py-2 px-5 text-sm hover:opacity-90"
+                             
+                             >
             View Profile
-          </button>
-
+          </Link>
+          </div>
+          )
+        }
+        {/* <div className="mt-5 flex gap-2">
+          <Link href="/viewprofile" 
+          className=" rounded-lg mx-auto
+                             bg-black text-white 
+                             dark:bg-white dark:text-black
+                             py-2 px-5 text-sm hover:opacity-90"
+                             
+                             >
+            View Profile
+          </Link> */}
+{/* 
           <Link href="/dashboard/profile" className="flex-1 rounded-lg border 
                              border-gray-300 dark:border-gray-600
                              py-2 text-sm 
                              text-gray-700 dark:text-gray-300
                              hover:bg-gray-50 dark:hover:bg-gray-700">
             Edit Profile
-          </Link>
+          </Link> */}
    
         </div>
       </div>
-    </div>
+
   );
 }
