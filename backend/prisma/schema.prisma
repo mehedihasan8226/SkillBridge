@@ -60,7 +60,6 @@ model TutorCategory {
   @@unique([tutorId, categoryId])
 }
 
-
 model TutorAvailability {
   id      String       @id @default(ulid())
   tutorId String
@@ -72,7 +71,6 @@ model TutorAvailability {
 
   booking Booking?
 }
-
 
 model Booking {
   id                  String @id @default(ulid())
@@ -96,11 +94,12 @@ model Booking {
 
 model Review {
   id        String @id @default(ulid())
-  studentId String
+  userId    String
   tutorId   String
   bookingId String
 
-  student Student      @relation(fields: [studentId], references: [id])
+  // student Student      @relation(fields: [studentId], references: [id])
+  user    User         @relation(fields: [userId], references: [id])
   tutor   TutorProfile @relation(fields: [tutorId], references: [id])
   booking Booking      @relation(fields: [bookingId], references: [id])
 
@@ -108,7 +107,10 @@ model Review {
   comment   String?
   status    ReviewStatus @default(APPROVED)
   createdAt DateTime     @default(now())
-  @@unique([bookingId, studentId])
+  student   Student?     @relation(fields: [studentId], references: [id])
+  studentId String?
+
+  @@unique([bookingId, userId])
 }
 
 model Student {
@@ -189,6 +191,7 @@ model User {
   sessions       Session[]
   accounts       Account[]
   bookings       Booking[]
+  reviews        Review[]
 
   @@map("user")
 }

@@ -8,18 +8,18 @@ const createReview = async (req: Request, res: Response, next: NextFunction) => 
         const user = req.user;
         if (!user) throw new Error("User not authenticated");
 
-        const { bookingId, rating, comment } = req.body;
+        const { rating, comment } = req.body;
 
         // Fetch booking to get tutorId
-        const booking = await prisma.booking.findUnique({
-            where: { id: bookingId },
+        const booking = await prisma.booking.findFirst({
+            where: { userId: user.id },
         });
 
         if (!booking) throw new Error("Booking not found");
         if (booking.userId !== user.id) throw new Error("You did not attend this booking");
 
         const payload = {
-            studentId: user.id,          
+            userId: user.id,          
             tutorId: booking.tutorId,    
             bookingId: booking.id,       
             rating,

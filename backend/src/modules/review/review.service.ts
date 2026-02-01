@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 
 const createReview = async (payload: any) => {
-    const { bookingId, tutorId, rating, comment, studentId } = payload;
+    const { bookingId, tutorId, rating, comment, userId } = payload;
 
     // Validate rating
     if (rating < 1 || rating > 5) {
@@ -9,23 +9,23 @@ const createReview = async (payload: any) => {
     }
 
     // if booking exists and belongs to student
-    const booking = await prisma.booking.findUnique({
-        where: { id: bookingId },
+    const booking = await prisma.booking.findFirst({
+        where: { userId: userId },
     });
 
     if (!booking) throw new Error("Booking not found");
-    if (booking.userId !== studentId) throw new Error("Student did not attend this booking");
+    if (booking.userId !== userId) throw new Error("Student did not attend this booking");
 
     // for prevent double review 
     const existingReview = await prisma.review.findFirst({
-        where: { bookingId, studentId },
+        where: { bookingId, userId },
     });
 
     if (existingReview) throw new Error("Review already exists for this booking");
 
     const result = await prisma.review.create({
         data: {
-            studentId,
+            userId,
             tutorId,
             bookingId,
             rating,

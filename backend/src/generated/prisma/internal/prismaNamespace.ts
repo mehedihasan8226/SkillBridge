@@ -1336,13 +1336,14 @@ export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeo
 
 export const ReviewScalarFieldEnum = {
   id: 'id',
-  studentId: 'studentId',
+  userId: 'userId',
   tutorId: 'tutorId',
   bookingId: 'bookingId',
   rating: 'rating',
   comment: 'comment',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  studentId: 'studentId'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]

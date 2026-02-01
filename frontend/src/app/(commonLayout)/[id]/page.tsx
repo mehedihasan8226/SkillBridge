@@ -1,10 +1,11 @@
 
 
-// import { getTutorProfilesById } from "@/actions/blog.action";
 import { getTutorProfilesById } from "@/actions/tutor.action";
 import Image from "next/image";
 import Link from "next/link";
 import BookingButton from "./[bookingId]/page";
+import ReviewForm from "@/components/modules/review/reviewForm/ReviewForm";
+// import { ReviewForm } from "@/components/modules/review/reviewForm/ReviewForm";
 
 type PageProps = {
   params: {
@@ -42,7 +43,7 @@ export default async function TutorProfilePage(
     : "/avatar.png";
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto p-6 mb-28">
       <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg p-6 grid md:grid-cols-3 gap-6">
         
         {/* Left: Profile */}
@@ -123,6 +124,8 @@ export default async function TutorProfilePage(
           </div>
         </div>
       </div>
+
+      <ReviewForm />
     </div>
   );
 }

@@ -433,11 +433,6 @@ export type StudentNullableScalarRelationFilter = {
   isNot?: Prisma.StudentWhereInput | null
 }
 
-export type StudentScalarRelationFilter = {
-  is?: Prisma.StudentWhereInput
-  isNot?: Prisma.StudentWhereInput
-}
-
 export type StudentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -507,10 +502,12 @@ export type StudentCreateNestedOneWithoutReviewsInput = {
   connect?: Prisma.StudentWhereUniqueInput
 }
 
-export type StudentUpdateOneRequiredWithoutReviewsNestedInput = {
+export type StudentUpdateOneWithoutReviewsNestedInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutReviewsInput, Prisma.StudentUncheckedCreateWithoutReviewsInput>
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutReviewsInput
   upsert?: Prisma.StudentUpsertWithoutReviewsInput
+  disconnect?: Prisma.StudentWhereInput | boolean
+  delete?: Prisma.StudentWhereInput | boolean
   connect?: Prisma.StudentWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutReviewsInput, Prisma.StudentUpdateWithoutReviewsInput>, Prisma.StudentUncheckedUpdateWithoutReviewsInput>
 }
