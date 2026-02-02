@@ -8,13 +8,13 @@ export const studentRoutes: Route[] = [
 
       items: [
         {
-          title: "Create student",
-          url: "/dashboard/create-student",
+          title: "Session Details",
+          url: "/student-dashboard/booking-session",
         },
-        {
-          title: "History",
-          url: "/dashboard/history",
-        },
+        // {
+        //   title: "History",
+        //   url: "/dashboard/history",
+        // },
 
       ],
     },

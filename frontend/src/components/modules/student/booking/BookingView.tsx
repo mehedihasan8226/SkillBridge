@@ -1,7 +1,7 @@
 'use client'
 
 
-import { getbookingbyuserid } from "@/actions/tutor.action";
+import { getbookingbyuserid } from "@/actions/student.action";
 import { Role } from "@/constants/role";
 import { User } from "@/types";
 import Image from "next/image";
@@ -15,7 +15,8 @@ export default function BookingView() {
   const fetchUser = async () => {
     const data = await getbookingbyuserid();
     console.log(data);
-    setBooking(data?.data?.data[0]);
+    // setBooking(data?.data?.data[0]);
+    setBooking(data?.data?.data);
     
   };
 
@@ -23,77 +24,69 @@ export default function BookingView() {
 }, []);
 
 
-// console.log("booking: ", booking.reviews);
-
-    // const { user, } = booking;
-
 
   // Guard
-  // if (!reviews) {
-  //   return (
-  //     <div className="h-screen flex items-center justify-center text-gray-500 dark:text-gray-400">
-  //       Loading reviews...
-  //     </div>
-  //   );
-  // }
+  if (!booking) {
+    return (
+      <div className="h-screen flex items-center justify-center text-gray-500 dark:text-gray-400">
+        Loading reviews...
+      </div>
+    );
+  }
+
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-sm w-full rounded-2xl border border-gray-200 dark:border-gray-700 
-                      bg-white dark:bg-gray-800 shadow-sm p-6">
+ 
 
-        {/* Avatar */}
-        <div className="flex justify-center">
-          <div className="relative h-24 w-24 rounded-full overflow-hidden border 
-                          border-gray-200 dark:border-gray-600">
-            <Image
-              src={booking?.user?.image || "/avatar.png"}
-              alt={booking?.user?.name || "User avatar"}
-              fill
-              className="object-cover"
-            />
+
+    <div className="min-h-screen w-full bg-gray-50 dark:bg-gray-950 p-6 flex justify-center">
+  <div className="max-w-md w-full flex flex-col gap-4">
+    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">My Sessions</h1>
+    
+    {booking?.map((book: any, index: number) => (
+      <div 
+        key={index}
+        className="group relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-200"
+      >
+        {/* Header: University & Status */}
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              {book?.tutor?.university || "University"}
+            </span>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-1">
+              Tutor Session
+            </h3>
+          </div>
+          <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium px-2.5 py-1 rounded-full">
+            Confirmed
           </div>
         </div>
 
-        {/* Info */}
-        <div className="text-center mt-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {booking?.user?.name}
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            {booking?.user?.email}
-          </p>
+        {/* Details Grid */}
+        <div className="grid grid-cols-2 gap-4 border-t border-gray-100 dark:border-gray-800 pt-4">
+          <div>
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">Time Slot</p>
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
+              {book?.tutorAvailability?.startTime} - {book?.tutorAvailability?.endTime}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">Rate</p>
+            <p className="text-sm font-bold text-gray-900 dark:text-white">
+              ${book?.tutor?.monthlyRate}/mo
+            </p>
+          </div>
         </div>
 
-        {
-         booking?.reviews?.map((review: any)=>{
-             console.log("review: ", review.rating);
-             
-         return(
-           <div className="text-center mt-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Rating: {review?.rating}
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Comment: {review?.comment}
-          </p>
-        </div>
-         )
-
-          })
-        }
-
-     
-
-        
-
-       
-      
-   
-        </div>
+        {/* Quick Action (Optional) */}
+        <button className="w-full mt-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity">
+          View Details
+        </button>
       </div>
-
-    // <h1>Hellow</h1>
+    ))}
+  </div>
+</div>
 
   );
 }

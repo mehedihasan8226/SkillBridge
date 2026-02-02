@@ -47,10 +47,3 @@ export const getTutorProfile = async () => {
 };
 
 
-export const getbookingbyuserid = async () => {
-  const res = await tutorService.getbookingbyuserid();
-  
-  console.log("getbookingbyuserid Result:", res); 
-  
-  return res; 
-};

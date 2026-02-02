@@ -22,3 +22,12 @@ export const createReviews = async (reviewData : Review ) => {
   
   return res; 
 };
+
+
+export const getbookingbyuserid = async () => {
+  const res = await studentService.getbookingbyuserid();
+  
+  console.log("getbookingbyuserid Result:", res); 
+  
+  return res; 
+};

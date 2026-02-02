@@ -84,5 +84,44 @@ export const studentService = {
 
 
 
+getbookingbyuserid: async () => {
+    try {
+      const cookieStore = await cookies();
+      const cookieHeader = cookieStore.toString();
+  
+  
+      const url = `${API_URL}/booking/getbookingbyuserid`;
+  
+      const res = await fetch(url, {
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          "Cookie": cookieHeader,
+        },
+  
+      });
+      // console.log("getAssignCategories server: ",res);
+      
+  
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorJson = JSON.parse(errorText);
+        console.error("Backend Error Response:", errorText);
+        return { data: errorJson, error: { message: `Backend error: ${res.status}` }, status: res.status };
+      }
+  
+      const result = await res.json();
+      console.log("Backend Success Data:", result);
+  
+      return { data: result, error: null };
+  
+    } catch (err) {
+      console.error("Fetch Exception:", err);
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  },
+  
+
+
 
 };
