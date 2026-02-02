@@ -1,10 +1,10 @@
-import BookingView from '@/components/modules/student/booking/BookingView'
+import ReviewView from '@/components/modules/tutor/reviewView/ReviewView'
 import React from 'react'
 
 const BookingReviewPage = () => {
   return (
     <div>
-    <BookingView />
+    <ReviewView />
 
     </div>
   )

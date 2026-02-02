@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { createReviews } from "@/actions/student.action";
@@ -18,7 +19,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; // Assuming you have a Textarea component
+import { Textarea } from "@/components/ui/textarea"; 
 import { useForm } from "@tanstack/react-form";
 // import { zodValidator } from "@tanstack/zod-form-adapter";
 import { toast } from "sonner";
@@ -26,12 +27,12 @@ import { z } from "zod";
 
 /* ---------------- Schema ---------------- */
 const reviewSchema = z.object({
-    tutorId: z
+    bookingId: z
     .string()
     .min(5, "tutorId must be at least 5 characters")
     .max(500, "tutorId is too long"),
   rating: z
-    // .number({ invalid_type_error: "Rating must be a number" })
+  
     .number("Rating must be a number")
     .min(1, "Minimum rating is 1")
     .max(5, "Maximum rating is 5"),
@@ -43,39 +44,33 @@ const reviewSchema = z.object({
 });
 
 /* ---------------- Component ---------------- */
-export default function ReviewForm({tutorId}: {tutorId: string}) {
+
+export default function ReviewForm({ bookingId, onSuccess }: { bookingId: string, onSuccess: () => void }) {
   const form = useForm({
     defaultValues: {
-      tutorId:tutorId,
       rating: 5,
       comment: "",
+      bookingId: bookingId, 
     },
-    // validatorAdapter: zodValidator(),
     validators: {
       onSubmit: reviewSchema,
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Submitting your review...");
-
       try {
-        const res = await createReviews(value);
+     
+        const res = await createReviews({ ...value, bookingId }); 
 
-        // console.log(res.data.message);
-        if(res.data && res.data.success == false){
-            toast.error(res.data.message, { id: toastId });
-            return
-        }
-        
-        if (res?.error) {
-          toast.error(res.error.message || "Failed to submit review", { id: toastId });
+        if (res.data && res.data.success === false) {
+          toast.error(res.data.message, { id: toastId });
           return;
         }
 
         toast.success("Review submitted successfully!", { id: toastId });
         form.reset();
+        onSuccess(); 
       } catch (err) {
         toast.error("Something went wrong", { id: toastId });
-        console.error("Submission Error:", err);
       }
     },
   });

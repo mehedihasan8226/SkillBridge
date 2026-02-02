@@ -1,5 +1,7 @@
 export type Review = {
      rating: number,
-    comment: string
+    comment: string,
+    bookingId: string
+    
 
 };

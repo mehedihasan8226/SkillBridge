@@ -125,7 +125,8 @@ export default async function TutorProfilePage(
         </div>
       </div>
 
-      <ReviewForm tutorId={id}  />
+      {/* <ReviewForm tutorId={id}  /> */}
+      {/* <ReviewForm  /> */}
     </div>
   );
 }

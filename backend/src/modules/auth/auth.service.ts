@@ -12,17 +12,26 @@ const getAuthUser = async ()=>{
 
 const getAuthProfileById = async (id: string) => {
 
-
     const result = await prisma.user.findFirst({
         where: {
           id: id.trim(),
         },
-    
         include: { 
-            tutorProfile: true,
-            bookings: true,
-            reviews: true
-        } 
+        tutorProfile: {
+            include: {
+               
+                bookings: true,
+                reviews: {
+                    include:{
+                        user: true,
+                    }
+                }, 
+
+            }
+        },
+        bookings: true,
+        reviews: true 
+    }
     });
 
     return result;

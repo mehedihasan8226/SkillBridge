@@ -1,3 +1,5 @@
+
+
 'use client'
 
 
@@ -7,9 +9,14 @@ import { User } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ReviewForm from "../../review/reviewForm/ReviewForm";
 
 export default function BookingView() {
   const [booking, setBooking] = useState<any>(null);
+
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
+
+  
 
   useEffect(() => {
   const fetchUser = async () => {
@@ -25,7 +32,7 @@ export default function BookingView() {
 
 
 
-  // Guard
+
   if (!booking) {
     return (
       <div className="h-screen flex items-center justify-center text-gray-500 dark:text-gray-400">
@@ -33,6 +40,8 @@ export default function BookingView() {
       </div>
     );
   }
+
+
 
 
   return (
@@ -79,13 +88,31 @@ export default function BookingView() {
           </div>
         </div>
 
-        {/* Quick Action (Optional) */}
-        <button className="w-full mt-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity">
-          View Details
+     
+        <button 
+        onClick={() => setSelectedBookingId(book.id)}
+        className="w-full mt-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity">
+          give Review
         </button>
       </div>
     ))}
   </div>
+  {selectedBookingId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-md">
+            <button 
+              onClick={() => setSelectedBookingId(null)}
+              className="absolute right-4 top-4 text-gray-300 hover:text-black z-10"
+            >
+              ✕
+            </button>
+            <ReviewForm 
+                bookingId={selectedBookingId} 
+                onSuccess={() => setSelectedBookingId(null)} 
+            />
+          </div>
+        </div>
+      )}
 </div>
 
   );

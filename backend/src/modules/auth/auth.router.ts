@@ -6,7 +6,7 @@ import auth, { UserRole } from "../../middlewares/auth"
 
 const router = express.Router()
 
-router.get("/me", auth(UserRole.Admin,UserRole.Student,UserRole.Tutor), AuthController.getAuthProfileById)
+router.get("/me", auth(UserRole.Admin,UserRole.Tutor), AuthController.getAuthProfileById)
 
 router.get("/", AuthController.getAuthUser)
 
