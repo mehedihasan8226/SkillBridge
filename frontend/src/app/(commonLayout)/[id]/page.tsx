@@ -117,7 +117,7 @@ export default async function TutorProfilePage(
           <span>{slot.day} at {slot.time}</span>
          
         
-          <BookingButton bookingId={slot.id } />
+          <BookingButton bookingId={slot.id } tutorId={id} />
         </div>
       ))}
     </div>
@@ -125,7 +125,7 @@ export default async function TutorProfilePage(
         </div>
       </div>
 
-      <ReviewForm />
+      <ReviewForm tutorId={id}  />
     </div>
   );
 }

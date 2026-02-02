@@ -61,17 +61,18 @@
 import { createBookins } from '@/actions/student.action';
 import { useForm } from '@tanstack/react-form';
 
-export default function BookingButton({ bookingId }: any) {
+export default function BookingButton({ bookingId, tutorId }: any) {
   console.log("bookingId: ",bookingId);
   
   const form = useForm({
     defaultValues: {
-      id: bookingId,
+      bookingId: bookingId,
+      tutorId: tutorId
     },
     onSubmit: async ({ value }) => {
       try {
-      const res =  await createBookins(value.id);
-        console.log("value.id: ", value.id);
+      const res =  await createBookins(value.bookingId, value.tutorId);
+        // console.log("value.id: ", value.id);
         
     
        if (res.data && res.data.success === false) {

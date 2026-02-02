@@ -7,8 +7,8 @@ import { studentService } from "@/services/student.service";
 import { Review } from "@/types";
 
 
-export const createBookins = async (id : string ) => {
-  const res = await studentService.createBooking(id);
+export const createBookins = async (id : string, tutorId: string ) => {
+  const res = await studentService.createBooking(id, tutorId);
   
   console.log("createBookins Result:", res); 
   

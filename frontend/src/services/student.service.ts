@@ -10,12 +10,12 @@ const API_URL = env.API_URL;
 export const studentService = {
 
  
-  createBooking: async (id: string) => {
+  createBooking: async (id: string, tutorId: string) => {
   try {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore.toString();
 
-    const res = await fetch(`${API_URL}/booking/${id}`, {
+    const res = await fetch(`${API_URL}/booking/${tutorId}/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

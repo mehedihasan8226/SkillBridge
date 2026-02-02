@@ -7,10 +7,11 @@ const createBooking = async (req: Request, res: Response, next: NextFunction) =>
 
         const userId = req.user?.id
          const { availabilityId } = req.params;
+         const { tutorId } = req.params;
            
 
 
-        const result = await BookingService.createBooking({...req.body || {},availabilityId, userId})
+        const result = await BookingService.createBooking({...req.body || {},availabilityId, userId,tutorId})
     
         res.status(201).json(result)
         

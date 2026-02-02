@@ -5,10 +5,11 @@ import { prisma } from "../../lib/prisma"
 
 
 const createBooking = async (data: any) => {
-    const { userId, availabilityId } = data;
+    // const { userId, availabilityId } = data;
+    const { userId, availabilityId, tutorId } = data;
 
     const tutor = await prisma.tutorProfile.findUnique({
-        where: { userId: userId } 
+        where: { id: tutorId } 
     });
 
     if (!tutor) throw new Error("Tutor not found");

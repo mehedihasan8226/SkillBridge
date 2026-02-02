@@ -6,15 +6,16 @@ import { prisma } from "../../lib/prisma";
 const createReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = req.user;
-        console.log(user?.id);
-        
+
         if (!user) throw new Error("User not authenticated");
 
-        const { rating, comment } = req.body;
+        const { rating, comment, tutorId } = req.body;
+        // const { rating, comment } = req.body;
 
         // Fetch booking to get tutorId
         const booking = await prisma.booking.findFirst({
-            where: { userId: user.id },
+            where: { tutorId: tutorId},
+            // where: { userId: user.id },
         });
 
         if (!booking) throw new Error("Booking not found");

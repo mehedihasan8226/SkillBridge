@@ -26,6 +26,10 @@ import { z } from "zod";
 
 /* ---------------- Schema ---------------- */
 const reviewSchema = z.object({
+    tutorId: z
+    .string()
+    .min(5, "tutorId must be at least 5 characters")
+    .max(500, "tutorId is too long"),
   rating: z
     // .number({ invalid_type_error: "Rating must be a number" })
     .number("Rating must be a number")
@@ -35,12 +39,14 @@ const reviewSchema = z.object({
     .string()
     .min(5, "Comment must be at least 5 characters")
     .max(500, "Comment is too long"),
+
 });
 
 /* ---------------- Component ---------------- */
-export default function ReviewForm() {
+export default function ReviewForm({tutorId}: {tutorId: string}) {
   const form = useForm({
     defaultValues: {
+      tutorId:tutorId,
       rating: 5,
       comment: "",
     },
