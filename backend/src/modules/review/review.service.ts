@@ -39,12 +39,12 @@ import { prisma } from "../../lib/prisma";
 const createReview = async (payload: any) => {
     const { bookingId, rating, comment, userId } = payload;
 
-    // ১. রেটিং ভ্যালিডেশন
+
     if (rating < 1 || rating > 5) {
         throw new Error("Rating must be between 1 and 5");
     }
 
-    // ২. চেক করুন বুকিংটি এই ইউজারের কি না
+
     const booking = await prisma.booking.findUnique({
         where: { id: bookingId },
     });
@@ -52,14 +52,14 @@ const createReview = async (payload: any) => {
     if (!booking) throw new Error("Booking not found");
     if (booking.userId !== userId) throw new Error("You are not authorized to review this booking");
 
-    // ৩. চেক করুন এই bookingId-তে আগে রিভিউ দেওয়া হয়েছে কি না (এক বুকিং এ এক রিভিউ)
+   
     // const existingReview = await prisma.review.findUnique({
-    //     where: { bookingId: bookingId }, // Schema তে bookingId unique হতে হবে
+    //     where: { bookingId: bookingId }, 
     // });
 
     const existingReview = await prisma.review.findUnique({
     where: {
-        bookingId_userId: { // Prisma composite unique key এভাবেই খুঁজে
+        bookingId_userId: { 
             bookingId: bookingId,
             userId: userId,
         },
@@ -68,11 +68,10 @@ const createReview = async (payload: any) => {
 
     if (existingReview) throw new Error("You have already reviewed this booking");
 
-    // ৪. রিভিউ তৈরি করুন
     const result = await prisma.review.create({
         data: {
             userId,
-            tutorId: booking.tutorId, // বুকিং থেকে টিউটর আইডি নিন
+            tutorId: booking.tutorId, 
             bookingId,
             rating,
             comment,
@@ -86,8 +85,13 @@ const getAllReview = async () => {
     return prisma.review.findMany({
         include: {
             student: true,
-            tutor: true,
+            tutor: {
+                include: {
+                    user: true
+                }
+            },
             booking: true,
+            user: true
         },
     });
 };

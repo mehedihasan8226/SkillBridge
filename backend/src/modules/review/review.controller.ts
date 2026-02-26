@@ -47,7 +47,7 @@ const createReview = async (req: Request, res: Response, next: NextFunction) => 
         const user = req.user;
         if (!user) throw new Error("User not authenticated");
 
-        // সরাসরি bookingId নিন
+      
         const { rating, comment, bookingId } = req.body;
 
         const payload = {

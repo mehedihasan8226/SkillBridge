@@ -164,4 +164,40 @@ createAssignCategories: async (data: { tutorId: string; categoryIds: string[] })
 
 
 
+getAllReview: async () => {
+  try {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
+  
+    const url = `${API_URL}/review`;
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": cookieHeader,
+      },
+
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Backend Error Response:", errorText);
+      return { data: null, error: { message: `Backend error: ${res.status}` }, status: res.status };
+    }
+
+    const result = await res.json();
+    console.log("Backend Success Data:", result);
+
+    return { data: result, error: null };
+
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+},
+
+
+
 };

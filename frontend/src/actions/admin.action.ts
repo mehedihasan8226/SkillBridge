@@ -34,3 +34,11 @@ export const getAssignCategories = async () => {
   
   return res; 
 };
+
+export const getAllReview = async () => {
+  const res = await adminService.getAllReview();
+  
+  console.log("getAllReview Result:", res); 
+  
+  return res; 
+};

@@ -30,7 +30,7 @@ export const adminRoutes: Route[] = [
         },
         {
           title: "Review",
-          url: "/tutor-dashboard/booking-review",
+          url: "/admin-dashboard/allreview",
         },
 
         // student:
