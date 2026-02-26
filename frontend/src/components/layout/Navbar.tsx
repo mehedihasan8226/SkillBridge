@@ -124,23 +124,7 @@ const [user, setUser] = useState<Navbar1Props["user"] | null >(null);
 const [loading, setLoading] = useState(true);
  const router = useRouter()
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-     
-  //      const res = await fetch(`http://localhost:5000/user/me`,
-  //       {
-  //         credentials: "include",
-  //          cache: "force-cache" 
-
-  //        }
-  //      )
-            
-  //             const data = await res.json();
-  //             setUser(data.data)
-  //   };
-
-  //   fetchUser();
-  // }, []);
+  
   useEffect(() => {
     const fetchUser = async () => {
      
@@ -197,15 +181,7 @@ const [loading, setLoading] = useState(true);
               </NavigationMenu>
             </div>
           </div>
-          {/* <div className="flex gap-2">
-            <ModeToggle />
-            <Button asChild variant="outline" size="sm">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
-          </div> */}
+ 
 
         <div className="flex gap-2 items-center">
   <ModeToggle />

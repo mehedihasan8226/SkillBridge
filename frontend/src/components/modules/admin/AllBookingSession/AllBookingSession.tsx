@@ -99,7 +99,7 @@ export default function AllBookingSession() {
           <div className="text-right">
             <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">Rate</p>
             <p className="text-sm font-bold text-gray-900 dark:text-white">
-              ${book?.tutor?.monthlyRate}/day
+              tk {book?.tutor?.monthlyRate}/hr
             </p>
           </div>
         </div>

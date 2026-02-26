@@ -302,7 +302,7 @@ validators: {
             <form.Field name="monthlyRate">
               {(field) => (
                 <Field>
-                  <FieldLabel>Monthly Rate</FieldLabel>
+                  <FieldLabel>Hourly Rate</FieldLabel>
                   <Input
                     type="number"
                     value={field.state.value}

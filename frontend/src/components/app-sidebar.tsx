@@ -48,14 +48,15 @@ export function AppSidebar({user, ...props }: {user: {role: string} & React.Comp
       <SidebarContent>
         {routes.map((item) => (
           <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupLabel className="text-blue-700 w-full"> <Link href="/" replace className="font-semibold ">Home</Link></SidebarGroupLabel>
+            <SidebarGroupLabel>{item.title} </SidebarGroupLabel>
+            <SidebarGroupContent className="mt-10">
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     {/* <SidebarMenuButton asChild isActive={item.isActive}> */}
                     <SidebarMenuButton asChild >
-                      <Link href={item.url} replace>{item.title}</Link>
+                      <Link href={item.url} replace className="font-semibold">{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
