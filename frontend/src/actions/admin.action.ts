@@ -42,3 +42,11 @@ export const getAllReview = async () => {
   
   return res; 
 };
+
+export const getAllBooking = async () => {
+  const res = await adminService.getAllBooking();
+  
+  console.log("getAllBooking Result:", res); 
+  
+  return res; 
+};

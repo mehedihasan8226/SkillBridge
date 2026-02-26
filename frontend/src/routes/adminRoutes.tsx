@@ -36,7 +36,7 @@ export const adminRoutes: Route[] = [
         // student:
             {
           title: "Session Details",
-          url: "/student-dashboard/booking-session",
+          url: "/admin-dashboard/allbooked-session",
         },
 
       ],

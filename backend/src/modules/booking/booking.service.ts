@@ -52,7 +52,18 @@ const createBooking = async (data: any) => {
 
 const getAllBooking = async () => {
 
-        const result = await prisma.booking.findMany()
+        const result = await prisma.booking.findMany({
+            include: {
+                user: true,              
+                tutor: {
+                    include: {
+                        user: true
+                    }
+                },              
+                tutorAvailability: true, 
+                reviews: true,
+                },
+        })
         return result
 }
 
