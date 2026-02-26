@@ -9,7 +9,7 @@ const createTutorProfile = async (payload: any ) => {
     const existing = await prisma.tutorProfile.findUnique({
         where: { userId: payload.userId }
         });
-    // if (existing) throw new Error("Profile already exists for this user");
+  
     
   if (existing) {
     throw new AppError("Profile already exists for this user", 409);

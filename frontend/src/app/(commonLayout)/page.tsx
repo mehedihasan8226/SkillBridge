@@ -1,164 +1,60 @@
 
 
-import BlogCard from "@/components/modules/homepage/BlogCard";
-import { blogService } from "@/services/blog.service";
-import { BlogPost, Tutor } from "@/types";
-import Image from "next/image";
-import coffee from "../../../public/images/coffee.jpg";
-import { tutorService } from "@/services/tutor.service";
-import Link from "next/link";
+// import AboutUs from "@/components/modules/user/about/AboutUs";
+// import HeroSection from "@/components/modules/user/heroSecion/HeroSeciton";
+// import HowItWorks from "@/components/modules/user/howWork/HowItWorks";
+// import TutorList from "@/components/modules/user/tutorList/TutorList";
 
-export default async function Home() {
-  // const featuredPostsPromise = blogService.getBlogPosts({ isFeatured: true });
-  const featuredPosts = await tutorService.getTutorPosts();
-  console.log(featuredPosts);
-  
-  // const postsPromise = blogService.getBlogPosts(
-  //   { limit: "3" },
-  //   { revalidate: 10 },
-  // );
+import AboutUs from "@/components/modules/user/about/AboutUs";
+import HeroSection from "@/components/modules/user/heroSecion/HeroSeciton";
+import HowItWorks from "@/components/modules/user/howWork/HowItWorks";
+import TutorList from "@/components/modules/user/tutorList/TutorList";
 
-  // const [featuredPosts, posts] = await Promise.all([
-  //   featuredPostsPromise,
-  //   postsPromise,
-  // ]);
 
-  // console.log("featuredPosts: ",featuredPosts);
-  
+// export default async function Home() {
 
-  
+
 //   return (
-//     <div className="max-w-7xl mx-auto px-4">
-//       <div className="mb-12 mt-8 h-[calc(100vh-80px)] flex flex-col justify-center">
-//         <div className="relative w-full h-96 mb-6">
-       
-//           <Image
-//             src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1920&q=100"
-//             fill
-//             priority
-//             alt="Hero"
-//             className="object-cover rounded-md"
-//           />
-//         </div>
-//         <h1 className={"text-5xl font-bold text-center mb-4"}>
-//           Welcome to Our Blog
-//         </h1>
-//       </div>
+//       <>
 
-//       {featuredPosts?.data?.data && featuredPosts.data.data.length > 0 && (
-//         <div className="mb-12">
-//           <h2 className={"text-2xl font-bold mb-6"}>Featured Posts</h2>
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//             {featuredPosts.data.data.slice(0, 2).map((post: BlogPost) => (
-//               <div key={post.id} className="border rounded-lg overflow-hidden">
-//                 <img
-//                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=100"
-//                   alt={post.title}
-//                   className="w-full h-48 object-cover"
-//                 />
-//                 <div className="p-4">
-//                   <h3 className="font-bold text-xl mb-2">{post.title}</h3>
-//                   <p className="text-gray-600 line-clamp-2">{post.content}</p>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       )}
-
-//       <div>
-//         <h2 className="text-2xl font-bold mb-6">All Posts</h2>
-//         <div className="grid grid-cols-3 gap-5">
-//           {posts?.error?.message ? (
-//             <p className="text-red-500">{posts?.error?.message}</p>
-//           ) : null}
-//           {posts?.data?.data?.map((post: BlogPost) => (
-//             <BlogCard key={post.id} post={post} />
-//           ))}
-//         </div>
-//       </div>
+//     <div className="mt-20">
+//       <HeroSection />
 //     </div>
+
+
+
+//     <TutorList />
+
+//      <div className="mb-96">
+//       <AboutUs />
+//      </div>
+    
+//        <HowItWorks />
+
+//    </>
 //   );
 // }
+
+
+
+export default async function Home() {
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      <div className="mb-12 mt-8  flex flex-col md:flex-row  gap-3 justify-center">
+    <main className="min-h-screen" >
+     
+       <div className="pt-20" style={{marginTop:"100px", marginBottom:"80px"}}>
+         <HeroSection />
+       </div>
 
-          {featuredPosts?.data?.data.map((tutor: any) => (
-            <TutorCard key={tutor.id} tutor={tutor} />
-              ))}
+       <div>
+        <h1 className="text-center text-4xl font-bold ">Tutor List</h1>
+        <TutorList />
+       </div>
 
-        
-      </div>
-    </div>
+       <div className="my-20"> {/* Changed mb-96 to a more reasonable my-20 */}
+         <AboutUs />
+       </div>
+    
+       <HowItWorks />
+    </main>
   );
 }
-
-type TutorCardProps = {
-  tutor: Tutor;
-};
-
-const TutorCard = ({ tutor }: TutorCardProps) => {
-  return (
-    <div className="bg-gray-700 dark:bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 w-full max-w-sm">
-      
-      {/* Top Section */}
-      <div className="flex items-center gap-4">
-        <img
-          src={
-            tutor.profileImage ||
-            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          }
-          alt="profile"
-          className="w-16 h-16 rounded-full object-cover border"
-        />
-
-        <div>
-          <h3 className="text-lg font-semibold dark:text-gray-600 text-gray-200">
-            {tutor.majorSubject} Tutor
-          </h3>
-          <p className="text-sm dark:text-gray-600 text-gray-200">
-            {tutor.university}
-          </p>
-        </div>
-      </div>
-
-      {/* Info Section */}
-      <div className="mt-4 space-y-2 text-sm dark:text-gray-600 text-gray-200">
-        <p>
-          <span className="font-medium dark:text-gray-600">Qualification:</span>{" "}
-          {tutor.qualification}
-        </p>
-
-        <p>
-          <span className="font-medium dark:text-gray-600">Experience:</span>{" "}
-          {tutor.experience} years
-        </p>
-
-        <p>
-          <span className="font-medium dark:text-gray-600">Mode:</span>{" "}
-          {tutor.teachingMode}
-        </p>
-      </div>
-
-      {/* Bottom Section */}
-      <div className="mt-5 flex items-center justify-between">
-        <p className="text-lg font-bold dark:text-indigo-600 text-indigo-400">
-          ৳ {tutor.monthlyRate}/month
-        </p>
-
-        {/* <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-          View Profile
-        </button> */}
-        <Link
-        href={`/${tutor.id}`}
-        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 inline-block"
-      >
-        View Profile
-      </Link>
-      </div>
-    </div>
-  );
-};
-
-// export default TutorCard;

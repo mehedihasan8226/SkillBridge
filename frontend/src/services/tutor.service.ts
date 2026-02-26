@@ -141,16 +141,16 @@ getTutorProfile: async (tutorId?: string) => {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore.toString();
 
-    // If you have a tutorId, append it to the URL
+    
     const url = tutorId ? `${API_URL}/tutorprofiles/${tutorId}` : `${API_URL}/tutorprofiles`;
 
     const res = await fetch(url, {
-      method: "GET", // Changed from POST
+      method: "GET", 
       headers: {
         "Content-Type": "application/json",
         "Cookie": cookieHeader,
       },
-      // GET requests cannot have a body
+     
     });
 
     if (!res.ok) {
@@ -219,33 +219,75 @@ getTutorProfile: async (tutorId?: string) => {
 
 
 
-   createBlogPost: async (blogData: BlogData) => {
-    try {
-      const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/posts`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
-        },
-        body: JSON.stringify(blogData),
-      });
+getTutoravailAbility: async () => {
+  try {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
 
-      const data = await res.json();
+  
+    const url = `${API_URL}/tutoravailability`;
 
-      if (data.error) {
-        return {
-          data: null,
-          error: { message: "Error: Post not created." },
-        };
-      }
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": cookieHeader,
+      },
 
-      return { data: data, error: null };
-    } catch (err) {
-      return { data: null, error: { message: "Something Went Wrong" } };
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Backend Error Response:", errorText);
+      return { data: null, error: { message: `Backend error: ${res.status}` }, status: res.status };
     }
-  },
+
+    const result = await res.json();
+    console.log("Backend Success Data:", result);
+
+    return { data: result, error: null };
+
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+},
+
+
+deleteTutoravailAbility: async (id: string) => {
+  try {
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
+  
+    const url = `${API_URL}/tutoravailability/${id}`;
+
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": cookieHeader,
+      },
+
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Backend Error Response:", errorText);
+      return { data: null, error: { message: `Backend error: ${res.status}` }, status: res.status };
+    }
+
+    const result = await res.json();
+    console.log("Backend Success Data:", result);
+
+    return { data: result, error: null };
+
+  } catch (err) {
+    console.error("Fetch Exception:", err);
+    return { data: null, error: { message: "Something Went Wrong" } };
+  }
+},
 
 
 

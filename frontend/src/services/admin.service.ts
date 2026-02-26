@@ -94,7 +94,7 @@ createAssignCategories: async (data: { tutorId: string; categoryIds: string[] })
     const cookieStore = await cookies();
     const cookieHeader = cookieStore.toString();
 
-    // If you have a tutorId, append it to the URL
+
     const url = tutorId ? `${API_URL}/tutorprofiles/${tutorId}` : `${API_URL}/api/categories`;
 
     const res = await fetch(url, {

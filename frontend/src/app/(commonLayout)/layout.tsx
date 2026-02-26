@@ -6,6 +6,7 @@ const CommonLayout = ({children,}:
   return (
     <div>
          <Navbar />
+      
         {children}
     </div>
   )

@@ -103,21 +103,19 @@ export default async function TutorProfilePage(
 
           {/* CTA */}
           <div className="pt-4">
-            {/* <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
-              Book Now
-            </button> */}
-            {/* <Link 
-            className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-            href={`${tutor?.id}/${tutor?.data?.tutorAvailabilities?.id}`}>Book Now</Link>
-             */}
+           
              <div className="flex flex-col gap-4">
       <h3>Available Slots:</h3>
       {availabilities.map((slot: any) => (
         <div key={slot.id} className="p-4 border rounded flex justify-between">
           <span>{slot.day} at {slot.time}</span>
          
-        
-          <BookingButton bookingId={slot.id } tutorId={id} />
+      
+         {
+           tutor?.data?.availability ? <BookingButton bookingId={slot.id } tutorId={id} /> : ""
+         }
+      
+          
         </div>
       ))}
     </div>
@@ -125,8 +123,6 @@ export default async function TutorProfilePage(
         </div>
       </div>
 
-      {/* <ReviewForm tutorId={id}  /> */}
-      {/* <ReviewForm  /> */}
     </div>
   );
 }

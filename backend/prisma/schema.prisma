@@ -16,7 +16,7 @@ datasource db {
 model TutorProfile {
   id     String @id @default(ulid())
   userId String @unique
-  user   User   @relation("TutorProfile", fields: [userId], references: [id])
+  user   User   @relation("TutorProfile", fields: [userId], references: [id], onDelete: Cascade)
 
   phone         String
   profileImage  String?
@@ -31,7 +31,7 @@ model TutorProfile {
   teachingMode  TeachingMode @default(Online)
   monthlyRate   Int
   languages     Json?
-  availability  Boolean?
+  availability  Boolean? 
 
   bookings Booking[]
   reviews  Review[]
@@ -54,8 +54,8 @@ model TutorCategory {
   tutorId    String
   categoryId String
 
-  tutor    TutorProfile @relation(fields: [tutorId], references: [id])
-  category Category     @relation(fields: [categoryId], references: [id])
+  tutor    TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  category Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([tutorId, categoryId])
 }
@@ -63,7 +63,8 @@ model TutorCategory {
 model TutorAvailability {
   id      String       @id @default(ulid())
   tutorId String
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
+  tutor   TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  
 
   startTime DateTime
   endTime   DateTime
@@ -78,9 +79,9 @@ model Booking {
   tutorId             String
   tutorAvailabilityId String @unique
 
-  user              User              @relation(fields: [userId], references: [id])
-  tutor             TutorProfile      @relation(fields: [tutorId], references: [id])
-  tutorAvailability TutorAvailability @relation(fields: [tutorAvailabilityId], references: [id])
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tutor             TutorProfile      @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  tutorAvailability TutorAvailability @relation(fields: [tutorAvailabilityId], references: [id], onDelete: Cascade)
 
   status BookingStatus @default(PENDING)
   price  Int
@@ -88,7 +89,7 @@ model Booking {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   reviews   Review[]
-  student   Student? @relation(fields: [studentId], references: [id])
+  student   Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId String?
 }
 
@@ -99,15 +100,15 @@ model Review {
   bookingId String
 
   // student Student      @relation(fields: [studentId], references: [id])
-  user    User         @relation(fields: [userId], references: [id])
-  tutor   TutorProfile @relation(fields: [tutorId], references: [id])
-  booking Booking      @relation(fields: [bookingId], references: [id])
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tutor   TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+  booking Booking      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
 
   rating    Int
   comment   String?
   status    ReviewStatus @default(APPROVED)
   createdAt DateTime     @default(now())
-  student   Student?     @relation(fields: [studentId], references: [id])
+  student   Student?     @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId String?
 
   @@unique([bookingId, userId])
@@ -116,7 +117,7 @@ model Review {
 model Student {
   id     String @id @default(ulid())
   userId String @unique
-  user   User   @relation("StudentProfile", fields: [userId], references: [id])
+  user   User   @relation("StudentProfile", fields: [userId], references: [id], onDelete: Cascade)
 
   phone        String?
   profileImage String?

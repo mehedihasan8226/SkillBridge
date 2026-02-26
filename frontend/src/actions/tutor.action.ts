@@ -46,4 +46,20 @@ export const getTutorProfile = async () => {
   return res; 
 };
 
+export const getTutoravailAbilitys = async () => {
+  const res = await tutorService.getTutoravailAbility();
+  
+  console.log("getTutoravailAbilitys Result:", res); 
+  
+  return res; 
+};
+
+export const deleteTutoravailAbilitys = async (id: string) => {
+  const res = await tutorService.deleteTutoravailAbility(id);
+  
+  console.log("deleteTutoravailAbility Result:", res); 
+  
+  return res; 
+};
+
 

@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { TutorAvailabilityService } from "./tutorAvailability.service";
+import { prisma } from "../../lib/prisma";
+import strict from "node:assert/strict";
+import { string } from "better-auth";
 
 const createTutorAvailability = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,10 +20,13 @@ const createTutorAvailability = async (req: Request, res: Response, next: NextFu
     }
 };
 
+
+
+
 const getTutorAvailabilities = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const tutorId = req.user?.id; 
-        const result = await TutorAvailabilityService.getTutorAvailabilities(tutorId as string);
+        const userId = req.user?.id; 
+        const result = await TutorAvailabilityService.getTutorAvailabilities(userId as string);
 
         res.status(200).json(result);
     } catch (error) {
@@ -42,7 +48,8 @@ const updateTutorAvailability = async (req: Request, res: Response, next: NextFu
 const deleteTutorAvailability = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const result = await TutorAvailabilityService.deleteTutorAvailability(id as string);
+        const userId = req.user?.id;
+        const result = await TutorAvailabilityService.deleteTutorAvailability(id as string, userId as string);
 
         res.status(200).json({ message: "Deleted successfully", result });
     } catch (error) {

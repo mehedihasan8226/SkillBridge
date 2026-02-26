@@ -64,8 +64,6 @@ const getBookingById = async (req: Request, res: Response, next: NextFunction) =
 const getBookingByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
             const userId = req.user?.id
-
-            console.log("userId: ", userId);
             
 
         

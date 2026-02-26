@@ -47,16 +47,13 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false, 
-    sameSite: "lax" 
+    sameSite: "none" 
   }
 }));
 
 
  app.use(notFound)
  app.use(errorHandler)
-
-
-
 
 
 export default app

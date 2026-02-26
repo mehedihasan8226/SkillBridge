@@ -3,6 +3,7 @@
 "use client";
 
 
+import { getCategories } from "@/actions/admin.action";
 import { createTutorProfiles } from "@/actions/tutor.action";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +27,7 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { z } from "zod";
 // import { zodValidator } from "@tanstack/zod-form-adapter";
+import { useEffect, useState } from "react";
 
 
 /* ---------------- Schema ---------------- */
@@ -50,6 +52,9 @@ const tutorSchema = z.object({
 /* ---------------- Component ---------------- */
 
 export default function CreateTutorProfileFormClient() {
+
+  const [categories, setCategories] = useState<any[]>([]);
+
   const form = useForm({
     defaultValues: {
       // required
@@ -59,10 +64,10 @@ export default function CreateTutorProfileFormClient() {
       majorSubject: "",
       experience: 0,
       monthlyRate: 0,
-      availability: true,
+      availability: false,
 
       // optional
-      profileImage: "",
+      profileImage: "./image.png",
       gender: "",
       dateOfBirth: "",
       nationality: "",
@@ -130,8 +135,27 @@ validators: {
     },
   });
 
+
+  // categories:
+
+  useEffect(() => {
+  const fetchCategories = async () => {
+    const res = await getCategories();
+
+    if (res?.data?.data) {
+      setCategories(res.data.data);
+    }
+  };
+
+  fetchCategories();
+}, []);
+
+  
+
+
   return (
-    <Card className="w-full max-w-2xl">
+
+    <Card className="max-w-2xl">
       <CardHeader>
         <CardTitle>Create Tutor Profile</CardTitle>
         <CardDescription>
@@ -186,14 +210,14 @@ validators: {
                   <Input
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Barishal"
+                    placeholder="Dhaka"
                   />
                   <FieldError errors={field.state.meta.errors} />
                 </Field>
               )}
             </form.Field>
 
-            <form.Field name="majorSubject">
+            {/* <form.Field name="majorSubject">
               {(field) => (
                 <Field>
                   <FieldLabel>Major Subject</FieldLabel>
@@ -205,31 +229,59 @@ validators: {
                   <FieldError errors={field.state.meta.errors} />
                 </Field>
               )}
-            </form.Field>
+            </form.Field> */}
 
-            <form.Field name="profileImage">
+
+
+<form.Field name="majorSubject">
+            {(field) => (
+              <Field>
+                <FieldLabel>Major Subject</FieldLabel>
+                <select
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px', 
+                    borderRadius: '4px',
+                    border: '1px solid #ccc' 
+                  }}
+                >
+                  <option value="" disabled>Select Subject</option>
+
+                {
+                  categories.map((category)=>(
+                      <option key={category.id} value={category.name}>{category.name}</option>
+                  ))
+                }
+
+                </select>
+                
+                {field.state.meta.errors ? (
+                  <em style={{ color: 'red' }}>{field.state.meta.errors.join(', ')}</em>
+                ) : null}
+              </Field>
+            )}
+          </form.Field>
+
+
+            {/* <form.Field name="profileImage">
               {(field) => (
                 <Field>
                   <FieldLabel>Profile Image</FieldLabel>
                   <Input
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Image url"
+                    placeholder="Image uplopad"
                   />
                   <FieldError errors={field.state.meta.errors} />
                 </Field>
               )}
-            </form.Field>
-
-            {/* <form.Field name="experience">
-            {(field) => (
-              <Input
-                type="number"
-                value={field.state.value}
-                onChange={(e) => field.handleChange(Number(e.target.value))} // Keep this Number() conversion!
-              />
-            )}
             </form.Field> */}
+
+
+
+            
 
              <form.Field name="experience">
               {(field) => (
@@ -265,18 +317,7 @@ validators: {
 
             {/* Optional fields */}
 
-            {/* <form.Field name="gender">
-              {(field) => (
-                <Field>
-                  <FieldLabel>Gender</FieldLabel>
-                  <Input
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Male / Female"
-                  />
-                </Field>
-              )}
-            </form.Field> */}
+        
 
             <form.Field name="gender">
             {(field) => (
@@ -369,7 +410,11 @@ validators: {
           Create Profile
         </Button>
       </CardFooter>
+    
     </Card>
+
+
+
   );
 }
 

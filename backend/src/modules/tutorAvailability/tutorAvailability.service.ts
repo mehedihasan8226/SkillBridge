@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import { AppError } from "../../middlewares/AppError";
 
 
 const createTutorAvailability = async (payload: any) => {
@@ -8,6 +9,17 @@ const createTutorAvailability = async (payload: any) => {
     const availability = await prisma.tutorProfile.findUnique({
         where: { userId: payload.userId }
     });
+
+  if (!availability) {
+    throw new Error("Tutor profile not found");
+  }
+
+
+    
+    await prisma.tutorProfile.update({
+  where: { id: availability.id },
+  data: { availability: true },
+});
 
 
     const result = await prisma.tutorAvailability.create({
@@ -22,9 +34,19 @@ const createTutorAvailability = async (payload: any) => {
     return result;
 };
 
-const getTutorAvailabilities = async (tutorId: string) => {
+
+const getTutorAvailabilities = async (userId: string) => {
+
+    const tutorProfile = await prisma.tutorProfile.findUnique({
+        where: {userId: userId}
+    })
+
+      if (!tutorProfile) {
+        throw new Error("Tutor profile not found");
+    }
+
     return prisma.tutorAvailability.findMany({
-        where: { tutorId },
+        where: { tutorId: tutorProfile?.id },
         include: { booking: true }, 
     });
 };
@@ -40,7 +62,23 @@ const updateTutorAvailability = async (id: string, payload: any) => {
     });
 };
 
-const deleteTutorAvailability = async (id: string) => {
+const deleteTutorAvailability = async (id: string, userId: string) => {
+
+     const availability = await prisma.tutorProfile.findUnique({
+        where: { userId: userId }
+    });
+
+  if (!availability) {
+    throw new Error("Tutor profile not found");
+  }
+
+
+    
+    await prisma.tutorProfile.update({
+  where: { id: availability.id },
+  data: { availability: true },
+});
+
     return prisma.tutorAvailability.delete({
         where: { id },
     });
