@@ -5,31 +5,28 @@ export const adminRoutes: Route[] = [
       title: "User Management -> Admin",
 
       items: [
-        // {
-        //   title: "Category",
-        //   url: "/admin-dashboard/categories",
-        // },
+
         {
           title: "Category Table",
           url: "/admin-dashboard/categories/categorytable",
         },
+
         // {
-        //   title: "Assign Category",
-        //   url: "/admin-dashboard/assign-category",
+        //   title: "Assign Category Table",
+        //   url: "/admin-dashboard/assign-category/assign-categorytable",
         // },
-        {
-          title: "Assign Category Table",
-          url: "/admin-dashboard/assign-category/assign-categorytable",
-        },
 
         // tutor:
         {
-          title: "Edit Profile",
+          title: "Add Tutor Profile",
           url: "/tutor-dashboard/profile-data-add",
         },
         {
           title: "Availability",
-          url: "/tutor-dashboard/tutoravailability",
+          // url: "/tutor-dashboard/tutoravailability",
+          url: "/admin-dashboard/alltutoravailabilityTable",
+          
+          
         },
         {
           title: "Review",

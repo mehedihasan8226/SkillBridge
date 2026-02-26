@@ -35,6 +35,20 @@ const createTutorAvailability = async (payload: any) => {
 };
 
 
+const getAllTutorAvailabilities = async () => {
+
+   return prisma.tutorAvailability.findMany({
+    include: { 
+        booking: true,
+        tutor: {
+            include:{
+                user: true
+            }
+        }
+    },
+});
+};
+
 const getTutorAvailabilities = async (userId: string) => {
 
     const tutorProfile = await prisma.tutorProfile.findUnique({
@@ -86,6 +100,7 @@ const deleteTutorAvailability = async (id: string, userId: string) => {
 
 export const TutorAvailabilityService = {
     createTutorAvailability,
+    getAllTutorAvailabilities,
     getTutorAvailabilities,
     updateTutorAvailability,
     deleteTutorAvailability,

@@ -23,6 +23,17 @@ const createTutorAvailability = async (req: Request, res: Response, next: NextFu
 
 
 
+const getAllTutorAvailabilities = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+     
+        const result = await TutorAvailabilityService.getAllTutorAvailabilities();
+
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getTutorAvailabilities = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userId = req.user?.id; 
@@ -59,6 +70,7 @@ const deleteTutorAvailability = async (req: Request, res: Response, next: NextFu
 
 export const TutorAvailabilityController = {
     createTutorAvailability,
+    getAllTutorAvailabilities,
     getTutorAvailabilities,
     updateTutorAvailability,
     deleteTutorAvailability,

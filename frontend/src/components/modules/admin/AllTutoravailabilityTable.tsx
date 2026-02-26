@@ -10,13 +10,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+type UserType = {
+    name: string,
+    email: string
+}
+
+type TutorType = {
+ 
+  user: UserType
+};
+
 type TutorAvailabilityType = {
   id: string;
   startTime: string;
   endTime: string;
+  tutor: TutorType
 };
 
-export default function TutoravailabilityTable({
+export default function AllTutoravailabilityTable({
   tutoravailAbility,
 }: {
   tutoravailAbility: TutorAvailabilityType[];
@@ -38,6 +49,8 @@ export default function TutoravailabilityTable({
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Tutor Name</TableHead>
+            <TableHead>Tutor Email</TableHead>
             <TableHead>StartTime</TableHead>
             <TableHead>EndTime</TableHead>
             <TableHead>Action</TableHead>
@@ -54,6 +67,8 @@ export default function TutoravailabilityTable({
           ) : (
             tutoravailAbility?.map((availAbility) => (
               <TableRow key={availAbility.id}>
+                <TableCell>{availAbility?.tutor.user.name}</TableCell>
+                <TableCell>{availAbility?.tutor.user.email}</TableCell>
                 <TableCell>{availAbility.startTime}</TableCell>
                 <TableCell>{availAbility.endTime}</TableCell>
                 <TableCell>
