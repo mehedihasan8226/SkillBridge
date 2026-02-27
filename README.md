@@ -226,5 +226,5 @@ Implement advanced analytics for Admin dashboard
 
 Repository
 
-GitHub Repo
+GitHub Repo: https://github.com/mehedihasan8226/SkillBridge.git
 
