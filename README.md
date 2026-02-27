@@ -12,23 +12,23 @@ SkillBridge is a full-stack web application designed to connect learners with ex
 
 Frontend:
 
-Next.js
 
-TypeScript
+<li>Next.js</li>
+<li>TypeScript</li>
+<li>Tailwind CSS</li>
 
-Tailwind CSS
 
 Backend:
 
-Node.js + Express
+<li>Node.js + Express</li>
 
-PostgreSQL
+<li>PostgreSQL</li>
 
-Prisma ORM
+<li>Prisma ORM</li>
 
 Authentication & Authorization:
 
-Role-based access control: Student, Tutor, Admin
+<li>Role-based access control: Student, Tutor, Admin</li>
 
 
 
@@ -37,11 +37,11 @@ Role-based access control: Student, Tutor, Admin
 
 SkillBridge provides a streamlined platform for online tutoring with three main user roles:
 
-Student: Browse tutors, book sessions, manage profile, and leave reviews.
+1. Student: Browse tutors, book sessions, manage profile, and leave reviews.
 
-Tutor: Create/update profiles, set availability, view sessions, and receive ratings/reviews.
+2. Tutor: Create/update profiles, set availability, view sessions, and receive ratings/reviews.
 
-Admin: Seeded role; manages users, categories, and oversees bookings.
+3. Admin: Seeded role; manages users, categories, and oversees bookings.
 
 The platform ensures smooth interaction between learners and educators, making online tutoring efficient and transparent.
 
@@ -49,127 +49,127 @@ The platform ensures smooth interaction between learners and educators, making o
 📌 Features
 Public Features
 
-Browse and search tutors by subject, rating, and price
+<li>Browse and search tutors by subject, rating, and price</li>
 
-Filter tutors by category
+<li>Filter tutors by category</li>
 
-View detailed tutor profiles with reviews
+<li>View detailed tutor profiles with reviews</li>
 
-Landing page showcasing featured tutors
+<li>Landing page showcasing featured tutors</li>
 
 Student Features
 
-Register and login as a student
+<li>Register and login as a student</li>
 
-Book tutoring sessions
+<li>Book tutoring sessions</li>
 
-View upcoming and past bookings
+<li>View upcoming and past bookings</li>
 
-Leave reviews after sessions
+<li>Leave reviews after sessions</li>
 
-Manage personal profile
+<li>Manage personal profile</li>
 
 Tutor Features
 
-Register and login as a tutor
+<li>Register and login as a tutor</li>
 
-Create and update tutor profile
+<li>Create and update tutor profile</li>
 
-Set availability slots for sessions
+<li>Set availability slots for sessions</li>
 
-View all teaching sessions
+<li>View all teaching sessions</li>
 
-Receive ratings and reviews
+<li>Receive ratings and reviews</li>
 
 Admin Features
 
-View all users (students and tutors)
+<li>View all users (students and tutors)</li>
 
-Manage user status (ban/unban)
+<li>Manage user status (ban/unban)</li>
 
-View all bookings
+<li>View all bookings</li>
 
-Manage categories and tutor-category assignments
+<li>Manage categories and tutor-category assignments</li>
 
 
 🔗 Live Demo
 
-Frontend: https://skillbridgeprintend.vercel.app
+<li>Frontend: https://skillbridgeprintend.vercel.app</li>
 
-Backend: https://skillbridgebackend.vercel.app
+<li>Backend: https://skillbridgebackend.vercel.app</li>
 
 
 
 📂 API Routes
-Authentication
 
-GET /me – Get current user profile (roles: Admin, Tutor, Student)
+<ul>
+  <li><strong>Authentication</strong>
+    <ul>
+      <li>GET /me – Get current user profile (roles: Admin, Tutor, Student)</li>
+      <li>GET / – Get all users</li>
+      <li>PUT /:id – Update user profile</li>
+    </ul>
+  </li>
 
-GET / – Get all users
+  <li><strong>Booking</strong>
+    <ul>
+      <li>GET / – Get all bookings</li>
+      <li>GET /getbookingbyuserid – Get bookings by user ID</li>
+      <li>POST /:tutorId/:availabilityId – Create a new booking</li>
+      <li>GET /:id – Get booking by ID</li>
+    </ul>
+  </li>
 
-PUT /:id – Update user profile
+  <li><strong>Categories</strong>
+    <ul>
+      <li>POST / – Create category (Admin only)</li>
+      <li>GET / – Get all categories</li>
+    </ul>
+  </li>
 
-Booking
+  <li><strong>Reviews</strong>
+    <ul>
+      <li>POST / – Create review (Student only)</li>
+      <li>GET / – Get all reviews</li>
+      <li>GET /:id – Get review by ID</li>
+    </ul>
+  </li>
 
-GET / – Get all bookings
+  <li><strong>Students</strong>
+    <ul>
+      <li>POST / – Create student (Admin only)</li>
+      <li>GET / – Get all students</li>
+      <li>GET /:id – Get student by ID</li>
+    </ul>
+  </li>
 
-GET /getbookingbyuserid – Get bookings by user ID
+  <li><strong>Tutor Availability</strong>
+    <ul>
+      <li>POST / – Create availability (Tutor/Admin)</li>
+      <li>GET / – Get tutor availabilities (Tutor/Admin)</li>
+      <li>GET /all-availability-tutor – Get all tutor availabilities (Tutor/Admin)</li>
+      <li>PUT /:id – Update availability (Tutor/Admin)</li>
+      <li>DELETE /:id – Delete availability (Tutor/Admin)</li>
+    </ul>
+  </li>
 
-POST /:tutorId/:availabilityId – Create a new booking
+  <li><strong>Tutor Categories</strong>
+    <ul>
+      <li>POST /tutor-categories – Assign categories to tutor (Admin only)</li>
+      <li>GET /tutor-categories – Get all assigned tutor categories (Admin only)</li>
+      <li>DELETE /tutors/:tutorId/categories/:categoryId – Remove category from tutor (Admin only)</li>
+    </ul>
+  </li>
 
-GET /:id – Get booking by ID
-
-Categories
-
-POST / – Create category (Admin only)
-
-GET / – Get all categories
-
-Reviews
-
-POST / – Create review (Student only)
-
-GET / – Get all reviews
-
-GET /:id – Get review by ID
-
-Students
-
-POST / – Create student (Admin only)
-
-GET / – Get all students
-
-GET /:id – Get student by ID
-
-Tutor Availability
-
-POST / – Create availability (Tutor/Admin)
-
-GET / – Get tutor availabilities (Tutor/Admin)
-
-GET /all-availability-tutor – Get all tutor availabilities (Tutor/Admin)
-
-PUT /:id – Update availability (Tutor/Admin)
-
-DELETE /:id – Delete availability (Tutor/Admin)
-
-Tutor Categories
-
-POST /tutor-categories – Assign categories to tutor (Admin only)
-
-GET /tutor-categories – Get all assigned tutor categories (Admin only)
-
-DELETE /tutors/:tutorId/categories/:categoryId – Remove category from tutor (Admin only)
-
-Tutor Profiles
-
-POST / – Create tutor profile (Tutor/Admin)
-
-GET / – Get all tutor profiles
-
-GET /:id – Get tutor profile by ID
-
-PUT /:id – Update tutor profile/availability (Tutor/Admin)
+  <li><strong>Tutor Profiles</strong>
+    <ul>
+      <li>POST / – Create tutor profile (Tutor/Admin)</li>
+      <li>GET / – Get all tutor profiles</li>
+      <li>GET /:id – Get tutor profile by ID</li>
+      <li>PUT /:id – Update tutor profile/availability (Tutor/Admin)</li>
+    </ul>
+  </li>
+</ul>
 
 
 🏗️ Installation & Setup
