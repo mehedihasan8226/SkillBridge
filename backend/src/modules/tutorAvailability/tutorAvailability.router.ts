@@ -11,4 +11,6 @@ router.get("/all-availability-tutor", auth(UserRole.Tutor, UserRole.Admin), Tuto
 router.put("/:id", auth(UserRole.Tutor, UserRole.Admin), TutorAvailabilityController.updateTutorAvailability);
 router.delete("/:id", auth(UserRole.Tutor, UserRole.Admin), TutorAvailabilityController.deleteTutorAvailability);
 
+
+
 export const TutorAvailabilityRouter: Router = router

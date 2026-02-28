@@ -8,7 +8,8 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "ESNext",
-     "moduleResolution": "bundler",
+    //  "moduleResolution": "bundler",
+     "moduleResolution": "node",
     "target": "ES2023",
     // "types": [],
     // For nodejs:
@@ -43,5 +44,10 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*"]
+   "include": ["src/**/*"],
+  //  "exclude": ["node_modules", "dist", "src/generated/prisma"]
 }
+
+
+
+
