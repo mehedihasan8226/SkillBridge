@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/Footer';
 import { Navbar } from '@/components/layout/Navbar';
 import React, { Children } from 'react'
 
@@ -8,6 +9,8 @@ const CommonLayout = ({children,}:
          <Navbar />
       
         {children}
+
+        <Footer />
     </div>
   )
 }

@@ -88,10 +88,10 @@ import { notFound } from "./middlewares/notFound";
 
 const app = express();
 
-// ✅ Must parse JSON BEFORE routes
+
 app.use(express.json());
 
-// ✅ Session middleware before routes that need it
+
 app.use(session({
   secret: process.env.SESSION_SECRET!,
   resave: false,
@@ -108,10 +108,10 @@ app.use(cors({
   credentials: true
 }));
 
-// ✅ Auth route
+
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-// ✅ Other routes
+
 app.get('/', (req: Request, res: Response) => res.send('Hello World!'));
 
 app.use("/tutorprofiles", tutorProfileRouter);

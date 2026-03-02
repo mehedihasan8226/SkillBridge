@@ -2,6 +2,7 @@ import { Result } from "pg";
 import { PrismaAction } from "../../generated/prisma/internal/prismaNamespace";
 import { prisma } from "../../lib/prisma"
 import { AppError } from "../../middlewares/AppError";
+import { string } from "better-auth";
 
 
 const createTutorProfile = async (payload: any ) => {
@@ -24,9 +25,16 @@ const createTutorProfile = async (payload: any ) => {
 }
 
 
-const getAllTutorProfile = async ()=>{
+const getAllTutorProfile = async (payload: {search: string | undefined})=>{
         
-        const result = await prisma.tutorProfile.findMany()
+        const result = await prisma.tutorProfile.findMany({
+            where:{
+                majorSubject: {
+                    contains: payload.search as string,
+                    mode: "insensitive"
+                }
+            }
+        })
         return result
 }
 
